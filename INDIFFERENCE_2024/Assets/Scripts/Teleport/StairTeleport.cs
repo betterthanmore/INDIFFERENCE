@@ -9,11 +9,11 @@ public class StairTeleport : MonoBehaviour, ITeleportable
 
     public void Teleport(PlayerCotnroller player)
     {
-        if (Input.GetKey(KeyCode.UpArrow) && upperFloorTarget != null)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && upperFloorTarget != null)
         {
             player.transform.position = upperFloorTarget.position;
         }
-        else if (Input.GetKey(KeyCode.DownArrow) && lowerFloorTarget != null)
+        else if (Input.GetKeyDown(KeyCode.DownArrow) && lowerFloorTarget != null)
         {
             player.transform.position = lowerFloorTarget.position;
         }
