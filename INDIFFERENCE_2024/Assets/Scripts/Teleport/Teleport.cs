@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ITeleportable
 {
-    void Teleport(PlayerCotnroller player);
+    void Teleport(PlayerController player);
 }
 
 public class Teleport : MonoBehaviour
@@ -20,7 +20,8 @@ public class Teleport : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            PlayerCotnroller player = other.GetComponent<PlayerCotnroller>();
+            Debug.Log("텔포가능");
+            PlayerController player = other.GetComponent<PlayerController>();
             if(teleportable != null)
             {
                 teleportable.Teleport(player);

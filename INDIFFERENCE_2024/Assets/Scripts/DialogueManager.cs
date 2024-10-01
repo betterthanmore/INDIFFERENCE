@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour, IInteractable
 {
     public Text characterNameText;  
     public Text dialogueText;
@@ -20,13 +20,26 @@ public class DialogueManager : MonoBehaviour
     private float autoNextTime = 10f;  
     private Coroutine typingCoroutine;
 
+    public bool isDialogueActive = false;
+
+    private PlayerController playerController;
+
     void Start()
     {
-        // 필요 함수 추가
+        playerController = FindObjectOfType<PlayerController>();
+    }
+    public void Interact()
+    {
+        if (!isDialogueActive)
+        {
+            dialogueUI.SetActive(true);
+            StartDialogue();
+            playerController.canMove = false;  // 플레이어 이동 비활성화
+        }
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !isTyping)
+        if (Input.GetKeyDown(KeyCode.F) && !isTyping)
         {
             NextDialogue();
         }
@@ -147,6 +160,15 @@ public class DialogueManager : MonoBehaviour
 
         currentDialogueIndex = nextIndex;
         StartDialogue();
+    }
+
+    // 대화 종료 시 호출
+    void EndDialogue()
+    {
+        isDialogueActive = false;
+        dialogueUI.SetActive(false);
+        playerController.canMove = true;  // 플레이어 이동 활성화
+
     }
 }
 

@@ -6,7 +6,7 @@ public class HallwayTeleport : MonoBehaviour, ITeleportable
 {
     public Transform nextHallway;  
 
-    public void Teleport(PlayerCotnroller player)
+    public void Teleport(PlayerController player)
     {
         if (nextHallway != null)
         {
