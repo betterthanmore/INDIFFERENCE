@@ -16,14 +16,14 @@ public class Scale : MonoBehaviour
     {
         leftWeight = CalculateWeight(leftPlatform);
         rightWeight = CalculateWeight(rightPlatform);
-
         AdjustPlatforms();
     }
 
     private float CalculateWeight(Transform platform)
     {
         float weight = platform.GetComponent<Rigidbody2D>().mass;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(platform.position, 1f); 
+        Vector2 boxCenter = new Vector2(platform.position.x, platform.position.y + 0.2f); Vector2 boxSize = new Vector2(4.0f, 1.0f);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCenter, boxSize, 0f);
         foreach (var collider in colliders)
         {
             if (collider.CompareTag("Object"))
