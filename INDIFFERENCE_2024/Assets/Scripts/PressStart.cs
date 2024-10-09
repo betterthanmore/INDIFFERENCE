@@ -9,7 +9,7 @@ public class PressStart : MonoBehaviour
     {
         if(Input.anyKeyDown)
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene(1);
         }
     }
 }

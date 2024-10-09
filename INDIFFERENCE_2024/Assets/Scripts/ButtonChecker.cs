@@ -6,10 +6,12 @@ public class ButtonChecker : MonoBehaviour
 {
     public List<PressingButton> buttons; 
     private int currentStep = 0;
+    private BackGroundText backGroundText;
 
     private void Start()
     {
         currentStep = 0;
+        backGroundText = FindObjectOfType<BackGroundText>();
     }
 
     public void ButtonPressed(int buttonIndex)
@@ -41,6 +43,19 @@ public class ButtonChecker : MonoBehaviour
     private void PuzzleSolved()
     {
         Debug.Log("퍼즐 풀림");
+        if (backGroundText != null && backGroundText.textTriggers.Count > 0)
+        {
+            var solvedTrigger = backGroundText.textTriggers[0]; 
+            solvedTrigger.message = "자, 이제 모험의 시작이야."; 
+            solvedTrigger.displayImage.gameObject.SetActive(true);
+            solvedTrigger.displayText.gameObject.SetActive(true); 
+
+            if (solvedTrigger.textCoroutine != null)
+            {
+                StopCoroutine(solvedTrigger.textCoroutine);
+            }
+            solvedTrigger.textCoroutine = StartCoroutine(backGroundText.TypeText(solvedTrigger));
+        }
         ResetPuzzle();
     }
 }
