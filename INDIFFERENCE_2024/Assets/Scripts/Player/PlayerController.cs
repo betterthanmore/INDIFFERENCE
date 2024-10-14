@@ -24,7 +24,10 @@ public class PlayerController : MonoBehaviour
     private HingeJoint2D ropeJoint;
     private Animator animator;
     private bool isOnJumpPad = false;
-    private bool isNearObject = false; 
+    private bool isNearObject = false;
+
+    public bool isOn_Mp = false;
+    public Rigidbody2D platformRb;
 
     private void Start()
     {
@@ -109,9 +112,13 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        if (!isNearObject || !Input.GetKey(KeyCode.LeftShift))
+        if (!isNearObject || !Input.GetKey(KeyCode.LeftShift) || !isOn_Mp)
         {
             rb.velocity = new Vector2(input * moveSpeed, rb.velocity.y);
+        }
+        if(isOn_Mp)
+        {
+            rb.velocity = new Vector2(platformRb.velocity.x + input*moveSpeed, rb.velocity.y);
         }
     }
     void PushOrPullObject()

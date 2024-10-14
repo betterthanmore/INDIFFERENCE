@@ -1891,6 +1891,7 @@ GameObject:
   - component: {fileID: 378060849}
   - component: {fileID: 378060848}
   - component: {fileID: 378060847}
+  - component: {fileID: 378060850}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1966,12 +1967,28 @@ Transform:
   m_GameObject: {fileID: 378060846}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: 2.6599998, z: -1}
+  m_LocalPosition: {x: 99.8, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1816438365}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &378060850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378060846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828b3615d251abf4a8276f1a352b26cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothTime: 0
+  positionOffest: {x: 0, y: 0, z: -10}
+  xLimit: {x: -15, y: 115}
+  yLimit: {x: -4.3, y: 5}
 --- !u!1 &392274072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2600,7 +2617,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -8420,6 +8437,8 @@ MonoBehaviour:
   interactableRange: 2
   canMove: 1
   currentItem: {fileID: 0}
+  isOn_Mp: 0
+  platformRb: {fileID: 0}
 --- !u!50 &1816438362
 Rigidbody2D:
   serializedVersion: 4
@@ -8508,12 +8527,11 @@ Transform:
   m_GameObject: {fileID: 1816438360}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.1, y: -2.4, z: 0}
+  m_LocalPosition: {x: 28.2, y: -4.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1489552565}
-  - {fileID: 378060849}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!251 &1816438366
@@ -8551,7 +8569,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -21.1, y: -2.4}
+  m_ConnectedAnchor: {x: 28.2, y: -4.2}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -9190,7 +9208,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -10131,6 +10149,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 378060849}
   - {fileID: 425758236}
   - {fileID: 1816438365}
   - {fileID: 1580088970}
