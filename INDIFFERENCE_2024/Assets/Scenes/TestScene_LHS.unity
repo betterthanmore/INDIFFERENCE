@@ -8421,7 +8421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead7dd7bc8f06b74ea1b1c25ec146875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  moveSpeed: 5
+  runSpeedMultiplier: 1.5
   pushPullSpeed: 5
   jumpForce: 10
   groundCheck: {fileID: 1489552565}
@@ -8439,6 +8440,8 @@ MonoBehaviour:
   currentItem: {fileID: 0}
   isOn_Mp: 0
   platformRb: {fileID: 0}
+  fallMultiplier: 2.5
+  crouchSpeedMultiplier: 0.5
 --- !u!50 &1816438362
 Rigidbody2D:
   serializedVersion: 4
@@ -8527,7 +8530,7 @@ Transform:
   m_GameObject: {fileID: 1816438360}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.2, y: -4.2, z: 0}
+  m_LocalPosition: {x: -24.8, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8569,7 +8572,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 28.2, y: -4.2}
+  m_ConnectedAnchor: {x: -24.8, y: -2.5}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -8578,8 +8581,8 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
---- !u!70 &1816438368
-CapsuleCollider2D:
+--- !u!61 &1816438368
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8611,8 +8614,18 @@ CapsuleCollider2D:
   m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
   m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_EdgeRadius: 0
 --- !u!1 &1836840462
 GameObject:
   m_ObjectHideFlags: 0

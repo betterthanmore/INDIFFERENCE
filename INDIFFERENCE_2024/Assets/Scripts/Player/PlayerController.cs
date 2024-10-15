@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public float runSpeedMultiplier = 1.5f;
     public float pushPullSpeed = 3f;
     public float jumpForce = 10f;
     public Transform groundCheck;
@@ -29,12 +30,23 @@ public class PlayerController : MonoBehaviour
     public bool isOn_Mp = false;
     public Rigidbody2D platformRb;
 
+    public float fallMultiplier = 2.5f;
+    private float fallVelocity = 0f;
+
+    private BoxCollider2D boxCollider;
+    private Vector2 originalColliderSize;
+    private bool isCrouching = false;
+    private bool isRunning = false;
+    public float crouchSpeedMultiplier = 0.5f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         ropeJoint = GetComponent<HingeJoint2D>();
         ropeJoint.enabled = false;
+        boxCollider = GetComponent<BoxCollider2D>();
+        originalColliderSize = boxCollider.size;
     }
 
     private void Update()
@@ -53,7 +65,30 @@ public class PlayerController : MonoBehaviour
             {
                 spriteRenderer.flipX = false;
             }
-
+            //달리기
+            if(isGrounded && Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                isRunning = true;
+                //animator.SetBool("IsRungging", true);
+            }
+            else if (isGrounded && Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                isRunning = false;
+                //animator.SetBool("IsRungging", false);
+            }
+            //앉기
+            if (isGrounded && Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                isCrouching = true;
+                boxCollider.size = new Vector2(boxCollider.size.x, originalColliderSize.y / 2f);
+                //animator.SetBool("IsCrouching", true);
+            }
+            else if (isGrounded && Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                isCrouching = false;
+                boxCollider.size = originalColliderSize;
+                //animator.SetBool("IsCrouching", false);
+            }
             // 점프
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
@@ -74,7 +109,7 @@ public class PlayerController : MonoBehaviour
                 currentItem.OnDrop();
                 currentItem = null;
             }
-            if (isNearObject && Input.GetKey(KeyCode.LeftShift)) 
+            if (isNearObject && Input.GetKey(KeyCode.C)) 
             {
                 PushOrPullObject();
             }
@@ -105,6 +140,14 @@ public class PlayerController : MonoBehaviour
 
         // 플레이어가 땅에 있는지 체크
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        if (!isGrounded && rb.velocity.y < 0)
+        {
+            float adjustedFallMultiplier = Mathf.SmoothStep(1f, fallMultiplier, -rb.velocity.y / 5f);
+            adjustedFallMultiplier = Mathf.Clamp(adjustedFallMultiplier, 1f, fallMultiplier);
+
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (adjustedFallMultiplier - 1) * Time.fixedDeltaTime;
+        }
     }
     private void FixedUpdate()
     {
@@ -112,13 +155,30 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        if (!isNearObject || !Input.GetKey(KeyCode.LeftShift) || !isOn_Mp)
+
+        float currentSpeed = moveSpeed;
+
+        if (isRunning)
         {
-            rb.velocity = new Vector2(input * moveSpeed, rb.velocity.y);
+            currentSpeed *= runSpeedMultiplier;
         }
-        if(isOn_Mp)
+        else if (isCrouching)
         {
-            rb.velocity = new Vector2(platformRb.velocity.x + input*moveSpeed, rb.velocity.y);
+            currentSpeed *= crouchSpeedMultiplier;
+        }
+
+        if (isNearObject && Input.GetKey(KeyCode.C))
+        {
+            PushOrPullObject();
+        }
+        else
+        {
+            rb.velocity = new Vector2(input * currentSpeed, rb.velocity.y);
+        }
+
+        if (isOn_Mp)
+        {
+            rb.velocity = new Vector2(platformRb.velocity.x + input * currentSpeed, rb.velocity.y);
         }
     }
     void PushOrPullObject()
