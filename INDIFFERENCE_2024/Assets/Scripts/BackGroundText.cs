@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class BackGroundText : MonoBehaviour
 {
-    [System.Serializable]                                   //각 위치 별 출력 될 텍스트 할당 하기 위함
+    [System.Serializable]
     public class TextTrigger
     {
-        public Transform targetPosition;                    //텍스트 출력되는 공간
+        public Transform targetPosition;
         public Image displayImage;
         public TMP_Text displayText;
         public string message;
@@ -16,13 +17,14 @@ public class BackGroundText : MonoBehaviour
         public float hideDistance = 2.0f;
         public float fadeOutSpeed = 2.0f;
         public bool imageDisplayed = false;
+        public bool isTextComplete = false;
         public Coroutine textCoroutine = null;
     }
 
     public List<TextTrigger> textTriggers;
     public Transform player;
 
-    void Start()                                            //초기화
+    void Start()
     {
         foreach (TextTrigger trigger in textTriggers)
         {
@@ -34,9 +36,9 @@ public class BackGroundText : MonoBehaviour
             }
         }
     }
-    //텍스트 출력 장소 도달 체크
+
     void Update()
-    {     
+    {
         foreach (TextTrigger trigger in textTriggers)
         {
             if (trigger.targetPosition == null)
@@ -55,7 +57,7 @@ public class BackGroundText : MonoBehaviour
             }
         }
     }
-    //텍스트 활성화
+
     void ShowImage(TextTrigger trigger)
     {
         trigger.displayImage.gameObject.SetActive(true);
@@ -66,13 +68,19 @@ public class BackGroundText : MonoBehaviour
             {
                 StopCoroutine(trigger.textCoroutine);
             }
+            trigger.isTextComplete = false;
             trigger.textCoroutine = StartCoroutine(TypeText(trigger));
         }
         trigger.imageDisplayed = true;
     }
-    //텍스트 비 활성화
+
     void HideImage(TextTrigger trigger)
     {
+        if (!trigger.isTextComplete)
+        {
+            return;
+        }
+
         if (trigger.textCoroutine != null)
         {
             StopCoroutine(trigger.textCoroutine);
@@ -80,7 +88,7 @@ public class BackGroundText : MonoBehaviour
         StartCoroutine(FadeOutText(trigger));
         trigger.imageDisplayed = false;
     }
-    //하나씩 텍스트 출력
+
     public IEnumerator TypeText(TextTrigger trigger)
     {
         trigger.displayText.text = "";
@@ -98,8 +106,13 @@ public class BackGroundText : MonoBehaviour
                 yield return null;
             }
         }
+        trigger.isTextComplete = true;
+
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(FadeOutText(trigger));
     }
-    //멀어지면 페이드 아웃
+
     IEnumerator FadeOutText(TextTrigger trigger)
     {
         TMP_Text text = trigger.displayText;
@@ -114,7 +127,7 @@ public class BackGroundText : MonoBehaviour
         text.gameObject.SetActive(false);
         trigger.displayImage.gameObject.SetActive(false);
     }
-    //텍스트 정보
+
     void SetTextAlpha(TMP_Text text, float alpha)
     {
         Color color = text.color;

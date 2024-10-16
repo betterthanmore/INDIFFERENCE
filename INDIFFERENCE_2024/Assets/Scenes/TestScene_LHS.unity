@@ -454,7 +454,8 @@ MonoBehaviour:
   - targetPosition: {fileID: 1727809252}
     displayImage: {fileID: 746472105}
     displayText: {fileID: 1489232529}
-    message: "\uC704\uD5D8\uD574! \uC810\uD504(Space\uD0A4)\uB97C \uD1B5\uD574 \uB118\uC5B4\uAC00\uBCF4\uC790."
+    message: "\uC704\uD5D8\uD574! \uB2EC\uB9AC\uAE30(LeftShift)\uC640 \uC810\uD504(Space\uD0A4)\uB97C
+      \uD1B5\uD574 \uB118\uC5B4\uAC00\uBCF4\uC790."
     triggerDistance: 1
     hideDistance: 2
     fadeOutSpeed: 2
@@ -464,9 +465,8 @@ MonoBehaviour:
     displayText: {fileID: 1489232529}
     message: "\uC55E\uC5D0 \uBAAC\uC2A4\uD130\uAC00 \uBCF4\uC5EC. \uBAAC\uC2A4\uD130\uB97C
       \uC720\uC778\uD574\uC11C \uBE60\uB728\uB824\uBCF4\uC790. \uADF8 \uD6C4\uC5D0
-      \uC67C\uCABD Shift \uD0A4\uB97C \uAFB9 \uB20C\uB7EC \uC0C1\uC790\uB97C \uBC00\uACE0
-      \uC228\uACA8\uC9C4 \uBC84\uD2BC\uC744 \uB20C\uB7EC\uBD10! \uAE38\uC774 \uC5F4\uB9B4
-      \uAC83 \uAC19\uC740\uB370?"
+      C\uD0A4\uB97C \uAFB9 \uB20C\uB7EC \uC0C1\uC790\uB97C \uBC00\uACE0 \uC228\uACA8\uC9C4
+      \uBC84\uD2BC\uC744 \uB20C\uB7EC\uBD10! \uAE38\uC774 \uC5F4\uB9B4 \uAC83 \uAC19\uC740\uB370?"
     triggerDistance: 1
     hideDistance: 2
     fadeOutSpeed: 2
