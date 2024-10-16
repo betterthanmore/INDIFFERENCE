@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckPoint : MonoBehaviour
+public class CheckPoint : MonoBehaviour, IInteractable
 {
     private CheckPointManager checkPointManager;
 
@@ -10,12 +10,8 @@ public class CheckPoint : MonoBehaviour
     {
         checkPointManager = FindObjectOfType<CheckPointManager>();
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public void Interact()
     {
-        if (other.CompareTag("Player"))
-        {
-            checkPointManager.UpdateCheckPoint(gameObject);
-        }
+        checkPointManager.UpdateCheckPoint(gameObject);
     }
 }

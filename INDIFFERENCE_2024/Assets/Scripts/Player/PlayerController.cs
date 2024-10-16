@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D platformRb;
 
     public float fallMultiplier = 2.5f;
-    private float fallVelocity = 0f;
 
     private BoxCollider2D boxCollider;
     private Vector2 originalColliderSize;
