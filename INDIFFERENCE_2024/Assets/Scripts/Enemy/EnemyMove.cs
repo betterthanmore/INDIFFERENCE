@@ -8,6 +8,7 @@ public class EnemyMove : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     public int moveRan;         //moveRandom
+    
 
     void Awake()
     {
@@ -32,7 +33,16 @@ public class EnemyMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigid.velocity = new Vector2(moveRan, rigid.velocity.y);   
+        //rigid.velocity = new Vector2(moveRan, rigid.velocity.y);
+
+        Vector2 frontVec = new Vector2(rigid.position.x + moveRan * 0.2f, rigid.position.y - 1.0f); // πﬂπÿ¿∏∑Œ Ray ΩÓ±‚
+        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
+
+        // πŸ¥⁄¿Ã ¿÷¿ª ∂ß∏∏ ¿Ãµø
+        if (rayHit.collider != null)
+        {
+            rigid.velocity = new Vector2(moveRan, rigid.velocity.y);
+        }
     }
 
     IEnumerator monsterAI()
