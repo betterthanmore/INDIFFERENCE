@@ -11,6 +11,11 @@ public class CheckPointManager : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+
+        GameObject startCheckPoint = new GameObject("StartCheckPoint");
+        startCheckPoint.transform.position = player.transform.position;
+
+        UpdateCheckPoint(startCheckPoint);
     }
 
     private void Update()
@@ -18,10 +23,6 @@ public class CheckPointManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Respawn();
-        }
-        if(Input.GetKeyDown("escape"))
-        {
-            Application.Quit();
         }
     }
 
