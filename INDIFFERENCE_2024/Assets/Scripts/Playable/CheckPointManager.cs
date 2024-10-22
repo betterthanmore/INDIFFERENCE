@@ -7,6 +7,7 @@ public class CheckPointManager : MonoBehaviour
     public List<GameObject> checkPoints = new List<GameObject>();
     private GameObject player;
     private GameObject currentCheckPoint;
+    private GameObject restartPosition;
 
     private void Start()
     {
@@ -16,6 +17,7 @@ public class CheckPointManager : MonoBehaviour
         startCheckPoint.transform.position = player.transform.position;
 
         UpdateCheckPoint(startCheckPoint);
+        restartPosition = startCheckPoint;
     }
 
     private void Update()
@@ -46,5 +48,10 @@ public class CheckPointManager : MonoBehaviour
         {
             checkPoints.Add(newCheckPoint);
         }
+    }
+
+    public void ReStart()
+    {
+        player.transform.position = restartPosition.transform.position;
     }
 }
