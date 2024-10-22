@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -95,7 +95,175 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Skull_Move (52x54)_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 938dd036e0c52944fa042065e3845f17
+      internalID: 1392097406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Move (52x54)_1
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 1
+        width: 52
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d51c2514877bce47982b4264fe152da
+      internalID: -770664454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Move (52x54)_2
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 1
+        width: 52
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbf83e265ab0ec2498d69fc7550dbca2
+      internalID: 1124659860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Move (52x54)_3
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 2
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d386e6cc648da84ca10e6b2ac7915e5
+      internalID: -563187804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Move (52x54)_4
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 2
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5903e7814f05f8e45bc47bbe263dfee7
+      internalID: -31621914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Move (52x54)_5
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1
+        width: 52
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8d2ddfa35e52b94080d3abe79f6f829
+      internalID: -36235733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Move (52x54)_6
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1
+        width: 52
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3efd97fabd9cb24ea237d67aa215117
+      internalID: 23413941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Move (52x54)_7
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 2
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18b0d503d11539a42b1d34d2af3ca269
+      internalID: -601218816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +274,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Skull_Move (52x54)_0: 1392097406
+      Skull_Move (52x54)_1: -770664454
+      Skull_Move (52x54)_2: 1124659860
+      Skull_Move (52x54)_3: -563187804
+      Skull_Move (52x54)_4: -31621914
+      Skull_Move (52x54)_5: -36235733
+      Skull_Move (52x54)_6: 23413941
+      Skull_Move (52x54)_7: -601218816
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
