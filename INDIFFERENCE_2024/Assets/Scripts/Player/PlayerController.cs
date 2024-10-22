@@ -30,7 +30,8 @@ public class PlayerController : MonoBehaviour
     public bool isOn_Mp = false;
     public Rigidbody2D platformRb;
 
-    public float fallMultiplier = 2.5f;
+    public float fallMultiplier = 1.5f;
+    private float maxFallSpeed = 19.6f;
 
     private BoxCollider2D boxCollider;
     private Vector2 originalColliderSize;
@@ -146,6 +147,11 @@ public class PlayerController : MonoBehaviour
             adjustedFallMultiplier = Mathf.Clamp(adjustedFallMultiplier, 1f, fallMultiplier);
 
             rb.velocity += Vector2.up * Physics2D.gravity.y * (adjustedFallMultiplier - 1) * Time.fixedDeltaTime;
+
+            if (rb.velocity.y < -maxFallSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
+            }
         }
     }
     private void FixedUpdate()

@@ -34,14 +34,14 @@ public class DropObjectManager : MonoBehaviour
         }
     }
 
-    void FallObject(DropObject fallingObject)
+    private void FallObject(DropObject fallingObject)
     {
         Rigidbody2D rb = fallingObject.objectTransform.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.isKinematic = false; 
         }
-
         fallingObject.isFall = true;
+        Destroy(fallingObject.objectTransform.gameObject, 5f);
     }
 }
