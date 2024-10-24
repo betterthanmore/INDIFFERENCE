@@ -15,6 +15,7 @@ public class DropObjectManager : MonoBehaviour
 
     public List<DropObject> dropObjects;
     public Transform player;
+    private float dropGravity = 7.0f;
 
     private void Update()
     {
@@ -39,7 +40,8 @@ public class DropObjectManager : MonoBehaviour
         Rigidbody2D rb = fallingObject.objectTransform.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.isKinematic = false; 
+            rb.isKinematic = false;
+            rb.gravityScale = dropGravity;                
         }
         fallingObject.isFall = true;
         Destroy(fallingObject.objectTransform.gameObject, 5f);

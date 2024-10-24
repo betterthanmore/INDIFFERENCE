@@ -4001,7 +4001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &633590891
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8013,7 +8013,7 @@ GameObject:
   - component: {fileID: 1331373977}
   - component: {fileID: 1331373976}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DropObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10628,7 +10628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1822193732
 RectTransform:
   m_ObjectHideFlags: 0
