@@ -9,16 +9,12 @@ public class BreakableObject : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Destroy(this.gameObject);
             PlayerInfo player = other.GetComponent<PlayerInfo>();
             if (player != null)
             {
                 player.TakeDamage(50);
-                Destroy(this.gameObject);
             }
-        }
-        else if (other.CompareTag("Ground") || other.CompareTag("Object"))
-        {
-            Destroy(this.gameObject);
         }
         if (breakParticle!=null)
         {
