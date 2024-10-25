@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public class StupidEnemyMove : MonoBehaviour
 {
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     public int moveRan;         //moveRandom
-    public bool isAttacking = false; 
-
 
     void Awake()
     {
@@ -34,18 +31,7 @@ public class EnemyMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        //rigid.velocity = new Vector2(moveRan, rigid.velocity.y);
-        if (!isAttacking)
-        {
-            Vector2 frontVec = new Vector2(rigid.position.x + moveRan * 0.2f, rigid.position.y - 1.0f); // 발밑으로 Ray 쏘기
-            RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-
-            // 바닥이 있을 때만 이동
-            if (rayHit.collider != null)
-            {
-                rigid.velocity = new Vector2(moveRan, rigid.velocity.y);
-            }
-        }
+        rigid.velocity = new Vector2(moveRan, rigid.velocity.y);
     }
 
     IEnumerator monsterAI()
@@ -63,16 +49,5 @@ public class EnemyMove : MonoBehaviour
     public void stopMove()
     {
         StopCoroutine("monsterAI");
-    }
-
-    public void StartAttack()
-    {
-        isAttacking = true;
-        // 공격 애니메이션이나 로직 추가
-    }
-
-    public void EndAttack()
-    {
-        isAttacking = false;
     }
 }
