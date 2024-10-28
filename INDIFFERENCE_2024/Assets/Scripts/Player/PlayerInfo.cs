@@ -9,7 +9,7 @@ public class PlayerInfo : MonoBehaviour
     private int maxSoul = 3;
     private int currentSoul;
     private PlayerController playerController;
-    private CheckPointManager respawnPosition;
+    public CheckPointManager respawnPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +32,7 @@ public class PlayerInfo : MonoBehaviour
         {
             //플레이어 사망 애니메이션 끝난 후 처리되게
             UpdateSoul(-1);
+            currentHealth = maxHealth;
         }
     }
     public void Heal(int amount)
