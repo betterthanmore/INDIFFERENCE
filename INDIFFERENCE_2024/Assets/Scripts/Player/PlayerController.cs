@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -38,6 +39,11 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching = false;
     private bool isRunning = false;
     public float crouchSpeedMultiplier = 0.5f;
+
+    public GameObject interactionTextPrefab; 
+    private GameObject currentInteractionText; 
+    public float floatSpeed = 1f; 
+    public float floatAmount = 0.2f; 
 
     private void Start()
     {
@@ -153,6 +159,13 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
             }
         }
+
+        if (currentInteractionText != null)
+        {
+            Vector3 originalPosition = interactableObj != null
+                ? (interactableObj as MonoBehaviour).transform.position : transform.position;
+            currentInteractionText.transform.position = originalPosition + new Vector3(0, 1 + Mathf.Sin(Time.time * floatSpeed) * floatAmount, 0);
+        }
     }
     private void FixedUpdate()
     {
@@ -220,31 +233,31 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // IInteractable 인터페이스를 구현한 오브젝트를 찾음
         interactableObj = other.GetComponent<IInteractable>();
-
         CarryableObject item = other.GetComponent<CarryableObject>();
-        if(item != null)
+
+        if (interactableObj != null)
+        {
+            ShowInteractionText(other.transform, "[F] 상호작용");
+        }
+        else if(item != null)
         {
             currentItem = item;
         }
-
-        if (other.CompareTag("Object")) 
+        else if (other.CompareTag("Object")) 
         {
-            isNearObject = true; 
+            isNearObject = true;
+            //ShowInteractionText(other.transform, "C 밀고/당기기");
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        // 상호작용 가능한 오브젝트 범위를 벗어났을 때
-        if (other.GetComponent<IInteractable>() != null)
+        if (interactableObj != null || isNearObject)
         {
+            HideInteractionText();
             interactableObj = null;
-        }
-        if (other.CompareTag("Object")) // 물체를 벗어나면
-        {
-            isNearObject = false; // 물체 근처 여부 해제
+            isNearObject = false;
         }
     }
 
@@ -261,5 +274,34 @@ public class PlayerController : MonoBehaviour
         ropeJoint.enabled = false;
         ropeJoint.connectedBody = null;
         isClimbing = false;
+    }
+    private void ShowInteractionText(Transform target, string text)
+    {
+        if (interactionTextPrefab != null && currentInteractionText == null)
+        {
+            Vector3 spawnPosition = new Vector3(target.position.x, target.position.y + 10f, 0f); 
+            currentInteractionText = Instantiate(interactionTextPrefab, spawnPosition, Quaternion.identity);
+            TextMeshPro tmp = currentInteractionText.GetComponent<TextMeshPro>();
+            if (tmp != null)
+            {
+                tmp.text = text; 
+            }
+            Renderer renderer = currentInteractionText.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.sortingLayerName = "UI";
+                renderer.sortingOrder = 10; 
+            }
+        }
+    }
+
+    // 상호작용 텍스트 숨기기
+    private void HideInteractionText()
+    {
+        if (currentInteractionText != null)
+        {
+            Destroy(currentInteractionText); 
+            currentInteractionText = null;
+        }
     }
 }
