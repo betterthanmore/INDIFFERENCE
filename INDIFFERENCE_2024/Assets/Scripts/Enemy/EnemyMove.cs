@@ -60,9 +60,16 @@ public class EnemyMove : MonoBehaviour
 
     IEnumerator monsterAI()
     {
-        moveRan = Random.Range(-1, 2);   // -1<= ranNum <2
-        yield return new WaitForSeconds(3f);
-        StartCoroutine("monsterAI");
+        if(!isAttacking && isDead)
+        {
+            moveRan = Random.Range(-1, 2);   // -1<= ranNum <2
+            yield return new WaitForSeconds(3f);
+            StartCoroutine("monsterAI");
+        }
+        else
+        {
+            yield break;
+        }
     }
 
     public void startMove()
@@ -86,6 +93,7 @@ public class EnemyMove : MonoBehaviour
     {
         isAttacking = false;
         animator.SetBool("isAttacking", false);
+        StartCoroutine("monsterAI");
     }
     public void TakeDamage(int damage)
     {

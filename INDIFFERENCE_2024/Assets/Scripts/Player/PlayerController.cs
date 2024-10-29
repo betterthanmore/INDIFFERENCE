@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
             // 플레이어 이동 입력 처리
             input = Input.GetAxisRaw("Horizontal");
             
+            
             if(isGrounded && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 isRunning = true;

@@ -81,7 +81,6 @@ public class PlayerInfo : MonoBehaviour
         float timer = 0;
         playerController.canMove = false;
 
-
         Vector2 knockbackDirection = (transform.position.x > enemyPosition.x) ? Vector2.right : Vector2.left;
 
         while (timer < knockbackDuration)
