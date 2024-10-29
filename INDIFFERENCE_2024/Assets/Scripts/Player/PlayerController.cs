@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     public float interactableRange = 2f;
     public bool canMove = true;
     [HideInInspector] public bool isClimbing = false;
-    public CarryableObject currentItem;
     private HingeJoint2D ropeJoint;
     private Animator animator;
     private bool isOnJumpPad = false;
@@ -91,13 +90,6 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F) && interactableObj != null)
             {
                 interactableObj.Interact();
-            }
-
-            //아이템 떨구기
-            if (Input.GetKeyDown(KeyCode.Q) && currentItem != null)
-            {
-                currentItem.OnDrop();
-                currentItem = null;
             }
             if (isNearObject && Input.GetKey(KeyCode.C)) 
             {
@@ -216,15 +208,10 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         interactableObj = other.GetComponent<IInteractable>();
-        CarryableObject item = other.GetComponent<CarryableObject>();
 
         if (interactableObj != null)
         {
             ShowInteractionText(other.transform, "[F] 상호작용");
-        }
-        else if(item != null)
-        {
-            currentItem = item;
         }
         else if (other.CompareTag("Object")) 
         {

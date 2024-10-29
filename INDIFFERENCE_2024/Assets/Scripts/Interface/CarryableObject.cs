@@ -15,9 +15,11 @@ public class CarryableObject : MonoBehaviour, ICarryable
     private Rigidbody2D rb;
     public PlayerController playerController;
 
-    public float followDistance = 1f;
-    public float followSpeed = 5f; 
-    public float rotationSpeed = 5f; 
+    public float followDistance = 1f; 
+    public float followSpeed = 5f;
+    public float rotationSpeed = 5f;
+
+    private float lastInput;
 
     private void Start()
     {
@@ -28,17 +30,29 @@ public class CarryableObject : MonoBehaviour, ICarryable
     {
         if (isCarried && player != null)
         {
-            Vector2 direction;
+            Vector2 targetPosition = (Vector2)player.position + Vector2.up * 5f;
 
-            if(playerController.input < 0)
+            if (playerController.input < 0)
             {
-                direction = Vector2.right;
+                targetPosition += Vector2.right * followDistance;
+                lastInput = -1; 
             }
-            else
+            else if (playerController.input > 0)
             {
-                direction = Vector2.left;
+                targetPosition += Vector2.left * followDistance;
+                lastInput = 1; 
             }
-            Vector2 targetPosition = (Vector2)player.position + direction * followDistance;
+            else if (lastInput != 0) 
+            {
+                if (lastInput < 0)
+                {
+                    targetPosition += Vector2.right * followDistance; 
+                }
+                else
+                {
+                    targetPosition += Vector2.left * followDistance; 
+                }
+            }
 
             transform.position = Vector2.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
         }
@@ -48,11 +62,15 @@ public class CarryableObject : MonoBehaviour, ICarryable
     {
         if (other.CompareTag("Player"))
         {
-            OnPickUp(other.transform);
+            PlayerInventory inventory = other.GetComponent<PlayerInventory>();
+            if (inventory != null)
+            {
+                inventory.AddItem(this);
+                OnPickUp(other.transform);
+            }
         }
     }
 
-    // ¹°Ã¼¸¦ ÁÖ¿ò
     public void OnPickUp(Transform playerTransform)
     {
         player = playerTransform;
@@ -66,7 +84,6 @@ public class CarryableObject : MonoBehaviour, ICarryable
         }
     }
 
-    // ¶³¾î¶ß¸²
     public void OnDrop()
     {
         isCarried = false;

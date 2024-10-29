@@ -42,7 +42,7 @@ public class BreakableObject : MonoBehaviour
                     PlayerInfo player = collision.collider.GetComponent<PlayerInfo>();
                     if (player != null)
                     {
-                        player.TakeDamage((int)damage, transform.position);
+                        player.TakeDamage(50, transform.position);
                     }
                 }
                 Destroy(this.gameObject);
