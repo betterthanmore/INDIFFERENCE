@@ -11,6 +11,11 @@ public class EnemyMove : MonoBehaviour
     public int moveRan;         //moveRandom
     public bool isAttacking = false;
 
+    public int maxHealth = 100;
+    private int currentHealth;
+    private bool isDead = false;
+
+
 
     void Awake()
     {
@@ -21,6 +26,7 @@ public class EnemyMove : MonoBehaviour
     void Start()
     {
         StartCoroutine("monsterAI");
+        currentHealth = maxHealth;
     }
     void Update()
     {
@@ -81,4 +87,24 @@ public class EnemyMove : MonoBehaviour
         isAttacking = false;
         animator.SetBool("isAttacking", false);
     }
+    public void TakeDamage(int damage)
+    {
+        if (isDead) return;
+
+        currentHealth -= damage;
+        Debug.Log($"Current Health: {currentHealth}");
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        isDead = true; 
+        animator.SetTrigger("isDead"); 
+        Destroy(gameObject, 1.0f);
+    }
+
 }
