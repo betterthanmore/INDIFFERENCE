@@ -30,7 +30,7 @@ public class CarryableObject : MonoBehaviour, ICarryable
         {
             Vector2 direction;
 
-            if(playerController.spriteRenderer.flipX)
+            if(playerController.input < 0)
             {
                 direction = Vector2.right;
             }

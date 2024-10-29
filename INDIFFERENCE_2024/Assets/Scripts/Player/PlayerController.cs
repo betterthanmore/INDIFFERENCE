@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Spine.Unity;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,15 +14,14 @@ public class PlayerController : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
     public LayerMask ropeLayer;
-    public SpriteRenderer spriteRenderer;
     public float climbSpeed = 3f;
-    private Rigidbody2D rb;
-    private bool isGrounded;
-    private float input;
-    private IInteractable interactableObj;
+    [HideInInspector] public Rigidbody2D rb;
+    [HideInInspector] public bool isGrounded;
+    [HideInInspector] public float input;
+    [HideInInspector] public IInteractable interactableObj;
     public float interactableRange = 2f;
     public bool canMove = true;
-    private bool isClimbing = false;
+    [HideInInspector] public bool isClimbing = false;
     public CarryableObject currentItem;
     private HingeJoint2D ropeJoint;
     private Animator animator;
@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private BoxCollider2D boxCollider;
     private Vector2 originalColliderSize;
-    private bool isCrouching = false;
-    private bool isRunning = false;
+    [HideInInspector] public bool isCrouching = false;
+    [HideInInspector] public bool isRunning = false;
     public float crouchSpeedMultiplier = 0.5f;
 
     public GameObject interactionTextPrefab; 
@@ -62,51 +62,34 @@ public class PlayerController : MonoBehaviour
             // 플레이어 이동 입력 처리
             input = Input.GetAxisRaw("Horizontal");
             
-            //animator.SetFloat("Speed", Mathf.Abs(input));
-            if (input < 0)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else if (input > 0)
-            {
-                spriteRenderer.flipX = false;
-            }
-            //달리기
             if(isGrounded && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 isRunning = true;
-                //animator.SetBool("IsRungging", true);
             }
             else if (isGrounded && Input.GetKeyUp(KeyCode.LeftShift))
             {
                 isRunning = false;
-                //animator.SetBool("IsRungging", false);
             }
-            //앉기
             if (isGrounded && Input.GetKeyDown(KeyCode.LeftControl))
             {
                 isCrouching = true;
                 boxCollider.size = new Vector2(boxCollider.size.x, originalColliderSize.y / 2f);
-                //animator.SetBool("IsCrouching", true);
             }
             else if (isGrounded && Input.GetKeyUp(KeyCode.LeftControl))
             {
                 isCrouching = false;
                 boxCollider.size = originalColliderSize;
-                //animator.SetBool("IsCrouching", false);
             }
             // 점프
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                //animator.SetTrigger("Jump");
             }
 
             // 상호작용
             if (Input.GetKeyDown(KeyCode.F) && interactableObj != null)
             {
                 interactableObj.Interact();
-                //animator.SetTrigger("Interact");
             }
 
             //아이템 떨구기
@@ -122,8 +105,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 rb.velocity = new Vector2(input * moveSpeed, rb.velocity.y);
-                /*animator.SetBool("IsPushing", false);
-                animator.SetBool("IsPulling", false);*/
             }
             if (Input.GetKey(KeyCode.Space) && !isClimbing)
             {
