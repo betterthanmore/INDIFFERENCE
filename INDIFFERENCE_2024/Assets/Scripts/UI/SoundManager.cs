@@ -6,27 +6,29 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
-    //BGM 종류들
+    // BGM과 SFX 종류들
     public enum EBgm
     {
         BGM_TITLE,
         BGM_GAME,
     }
 
-    //SFX 종류들
     public enum ESfx
     {
         SFX_BUTTON,
-        SFX_MissionClear
+        SFX_MISSION_CLEAR
     }
 
-    //audio clip 담을 수 있는 배열
-    [SerializeField] AudioClip[] bgms;
-    [SerializeField] AudioClip[] sfxs;
+    // 오디오 클립 배열
+    [SerializeField] private AudioClip[] bgms;
+    [SerializeField] private AudioClip[] sfxs;
 
-    //플레이하는 AudioSource
-    [SerializeField] AudioSource audioBgm;
-    [SerializeField] AudioSource audioSfx;
+    // 재생에 사용할 AudioSource
+    [SerializeField] private AudioSource audioBgm;
+    [SerializeField] private AudioSource audioSfx;
+
+    // 현재 재생 중인 BGM을 추적
+    private EBgm? currentBgm;
 
     private void Awake()
     {
@@ -41,23 +43,46 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // EBgm 열거형을 매개변수로 받아 해당하는 배경 음악 클립을 재생
-    public void PlayBGM(EBgm bgmIdx)
+    // 배경음악 재생 (같은 BGM을 반복하지 않음)
+    public void PlayBGM(EBgm bgmIdx, float volume = 1.0f)
     {
-        //enum int형으로 형변환 가능
+        if (currentBgm == bgmIdx && audioBgm.isPlaying)
+            return; // 이미 같은 배경음악이 재생 중이면 재생하지 않음
+
         audioBgm.clip = bgms[(int)bgmIdx];
+        audioBgm.volume = volume;
+        audioBgm.loop = true;
         audioBgm.Play();
+        currentBgm = bgmIdx;
     }
 
-    // 현재 재생 중인 배경 음악 정지
+    // 배경음악 정지
     public void StopBGM()
     {
         audioBgm.Stop();
+        currentBgm = null;
     }
 
-    // ESfx 열거형을 매개변수로 받아 해당하는 효과음 클립을 재생
-    public void PlaySFX(ESfx esfx)
+    // 효과음 재생
+    public void PlaySFX(ESfx esfx, float volume = 1.0f)
     {
-        audioSfx.PlayOneShot(sfxs[(int)esfx]);
+        audioSfx.PlayOneShot(sfxs[(int)esfx], volume);
+    }
+
+    // 배경음악 볼륨 조절
+    public void SetBGMVolume(float volume)
+    {
+        audioBgm.volume = volume;
+    }
+
+    // 효과음 볼륨 조절
+    public void SetSFXVolume(float volume)
+    {
+        audioSfx.volume = volume;
+    }
+    void Start()
+    {
+        // 게임 시작 시 자동으로 타이틀 배경음악 재생
+        PlayBGM(EBgm.BGM_TITLE);
     }
 }

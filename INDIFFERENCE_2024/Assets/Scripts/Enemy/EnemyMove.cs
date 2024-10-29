@@ -7,14 +7,16 @@ public class EnemyMove : MonoBehaviour
 {
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
+    Animator animator;
     public int moveRan;         //moveRandom
-    public bool isAttacking = false; 
+    public bool isAttacking = false;
 
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
     void Start()
     {
@@ -46,6 +48,8 @@ public class EnemyMove : MonoBehaviour
                 rigid.velocity = new Vector2(moveRan, rigid.velocity.y);
             }
         }
+
+        animator.SetBool("isMoving", Mathf.Abs(rigid.velocity.x) > 0.1f);
     }
 
     IEnumerator monsterAI()
@@ -68,11 +72,13 @@ public class EnemyMove : MonoBehaviour
     public void StartAttack()
     {
         isAttacking = true;
+        animator.SetBool("isAttacking", true);
         // 공격 애니메이션이나 로직 추가
     }
 
     public void EndAttack()
     {
         isAttacking = false;
+        animator.SetBool("isAttacking", false);
     }
 }
