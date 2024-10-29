@@ -30,7 +30,14 @@ public class PlayerAnimator : MonoBehaviour
 
     private void Update()
     {
-        skeletonAnimation.skeleton.ScaleX = playerController.input < 0 ? -1 : 1;
+        if (playerController.input < 0)
+        {
+            skeletonAnimation.skeleton.ScaleX = -1; 
+        }
+        else if (playerController.input > 0)
+        {
+            skeletonAnimation.skeleton.ScaleX = 1; 
+        }
 
         if (playerController.isClimbing)
         {

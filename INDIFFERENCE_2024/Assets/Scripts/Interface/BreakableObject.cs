@@ -16,7 +16,7 @@ public class BreakableObject : MonoBehaviour
             PlayerInfo player = other.GetComponent<PlayerInfo>();
             if (player != null)
             {
-                player.TakeDamage(50);
+                player.TakeDamage(50, transform.position);
             }
         }
         Destroy(this.gameObject);
