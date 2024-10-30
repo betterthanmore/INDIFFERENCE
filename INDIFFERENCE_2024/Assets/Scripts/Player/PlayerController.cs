@@ -42,7 +42,18 @@ public class PlayerController : MonoBehaviour
     public GameObject interactionTextPrefab; 
     private GameObject currentInteractionText; 
     public float floatSpeed = 1f; 
-    public float floatAmount = 0.2f; 
+    public float floatAmount = 0.2f;
+
+    private PlayerAnimator playerAni;
+
+    private bool isWallSliding;
+    private float wallSlidingSpeed = 2f;
+    public LayerMask wallLayer;
+    public Transform wallRightCheck;
+    public Transform wallLeftCheck;
+    public bool isWallJumping;
+    public float wallJumpingDuration;
+    public Vector2 wallJumpingPower;
 
     private void Start()
     {
@@ -52,6 +63,7 @@ public class PlayerController : MonoBehaviour
         ropeJoint.enabled = false;
         boxCollider = GetComponent<BoxCollider2D>();
         originalColliderSize = boxCollider.size;
+        playerAni = GetComponent<PlayerAnimator>();
     }
 
     private void Update()
@@ -81,9 +93,9 @@ public class PlayerController : MonoBehaviour
                 boxCollider.size = originalColliderSize;
             }
             // 점프
-            if (Input.GetButtonDown("Jump") && isGrounded)
+            if (Input.GetButtonDown("Jump"))
             {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                Jump();
             }
 
             // 상호작용
@@ -110,6 +122,7 @@ public class PlayerController : MonoBehaviour
                     AttachToRope(rope.attachedRigidbody);
                 }
             }
+            WallSlide();
 
             // 로프에서 떨어지기
             if (Input.GetKeyUp(KeyCode.Space) && isClimbing)
@@ -172,7 +185,48 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(platformRb.velocity.x + input * currentSpeed, rb.velocity.y);
         }
+        if(isWallJumping)
+        {
+            rb.velocity = new Vector2(- input * wallJumpingPower.x, wallJumpingPower.y);
+        }
     }
+    void Jump()
+    {
+        if(isGrounded)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+        if(isWallSliding)
+        {
+            isWallJumping = true;
+            Invoke("StopWallJump", wallJumpingDuration);
+        }
+    }
+    void StopWallJump()
+    {
+        isWallJumping = false;
+    }
+    private bool IsRightWalled()
+    {
+        return Physics2D.OverlapCircle(wallLeftCheck.position, 0.1f, wallLayer);
+    }
+    private bool IsLeftWalled()
+    {
+        return Physics2D.OverlapCircle(wallRightCheck.position, 0.1f, wallLayer);
+    }
+    private void WallSlide()
+    {
+        if(IsRightWalled() && !isGrounded && input != 0f || IsLeftWalled() && !isGrounded && input != 0f)
+        {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+    
     void PushOrPullObject()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.5f);

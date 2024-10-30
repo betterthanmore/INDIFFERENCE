@@ -27,16 +27,11 @@ public class PlayerAnimator : MonoBehaviour
 
         skeletonAnimation.state.GetCurrent(0).TimeScale = 1f;
     }
-
     private void Update()
     {
-        if (playerController.input < 0)
+        if(!playerController.isWallJumping)
         {
-            skeletonAnimation.skeleton.ScaleX = -1; 
-        }
-        else if (playerController.input > 0)
-        {
-            skeletonAnimation.skeleton.ScaleX = 1; 
+            Flip();
         }
 
         if (playerController.isClimbing)
@@ -85,7 +80,7 @@ public class PlayerAnimator : MonoBehaviour
                 }
                 else
                 {
-                    SetAnimation("1_IDLE", true); 
+                    SetAnimation("1_IDLE", true);
                 }
             }
         }
@@ -94,6 +89,17 @@ public class PlayerAnimator : MonoBehaviour
         {
             //SetAnimation("Interact", false); 
             return;
+        }
+    }
+    public void Flip()
+    {
+        if (playerController.input < 0)
+        {
+            skeletonAnimation.skeleton.ScaleX = -1;
+        }
+        else if (playerController.input > 0)
+        {
+            skeletonAnimation.skeleton.ScaleX = 1;
         }
     }
 }
