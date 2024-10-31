@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     public float wallJumpingDuration;
     public Vector2 wallJumpingPower;
 
+    private GameObject textObject;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -234,11 +235,13 @@ public class PlayerController : MonoBehaviour
         {
             if (hitCollider.CompareTag("Object"))
             {
-                Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), 0).normalized;
-
-                // 오브젝트 이동 처리
+                Vector2 direction = new Vector2(input, 0).normalized;
                 Rigidbody2D objectRb = hitCollider.GetComponent<Rigidbody2D>();
-                objectRb.MovePosition(objectRb.position + direction * pushPullSpeed * Time.fixedDeltaTime);
+
+                if (objectRb != null && objectRb.bodyType == RigidbodyType2D.Dynamic)
+                {
+                    objectRb.velocity = direction * pushPullSpeed;
+                }
             }
         }
     }
@@ -261,11 +264,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        interactableObj = other.GetComponent<IInteractable>();
+        var newInteractableObj = other.GetComponent<IInteractable>();
 
-        if (interactableObj != null)
+        if (newInteractableObj != null)
         {
-            ShowInteractionText(other.transform, "[F] 상호작용");
+            interactableObj = newInteractableObj;
+            if (other.CompareTag("Interactable"))
+            {
+                ShowInteractionText(other.transform, "[F] 상호작용");
+            }
         }
         else if (other.CompareTag("Object")) 
         {
@@ -276,10 +283,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (interactableObj != null || isNearObject)
+        if (other.GetComponent<IInteractable>() == interactableObj)
         {
-            HideInteractionText();
             interactableObj = null;
+            HideInteractionText();
+        }
+
+        if (other.CompareTag("Object"))
+        {
             isNearObject = false;
         }
     }

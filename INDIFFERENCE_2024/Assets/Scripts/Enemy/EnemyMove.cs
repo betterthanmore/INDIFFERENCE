@@ -11,7 +11,7 @@ public class EnemyMove : MonoBehaviour
     public int moveRan;         //moveRandom
     public bool isAttacking = false;
 
-    public int maxHealth = 100;
+    public int maxHealth = 50;
     private int currentHealth;
     private bool isDead = false;
 
@@ -60,15 +60,10 @@ public class EnemyMove : MonoBehaviour
 
     IEnumerator monsterAI()
     {
-        if(!isAttacking && isDead)
+        while (!isAttacking && !isDead)
         {
-            moveRan = Random.Range(-1, 2);   // -1<= ranNum <2
-            yield return new WaitForSeconds(3f);
-            StartCoroutine("monsterAI");
-        }
-        else
-        {
-            yield break;
+            moveRan = Random.Range(-1, 2);   // -1 <= ranNum < 2
+            yield return new WaitForSeconds(1f);
         }
     }
 

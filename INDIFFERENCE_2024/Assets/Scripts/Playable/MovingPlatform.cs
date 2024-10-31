@@ -26,12 +26,12 @@ public class MovingPlatform : MonoBehaviour
 
     private void Update()
     {
-        if(Vector2.Distance(transform.position, startTransform.position) < 0.05f)
+        if(Vector2.Distance(transform.position, startTransform.position) < 0.2f)
         {
             targetPosition = endTransform.position;
             DirectonCalculate();
         }
-        if (Vector2.Distance(transform.position, endTransform.position) < 0.05f)
+        if (Vector2.Distance(transform.position, endTransform.position) < 0.2f)
         {
             targetPosition = startTransform.position;
             DirectonCalculate();

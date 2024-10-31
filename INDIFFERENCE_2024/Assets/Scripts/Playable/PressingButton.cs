@@ -7,7 +7,6 @@ public class PressingButton : MonoBehaviour
     private bool isPressed = false;
     public ButtonChecker buttonChecker;
     public int buttonIndex;
-    public Rigidbody2D playerRb;
     public GameObject buttonPressed;
 
     private void OnTriggerEnter2D(Collider2D other)

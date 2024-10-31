@@ -11,6 +11,7 @@ TagManager:
   - Ground
   - Point
   - Key
+  - Interactable
   layers:
   - Default
   - TransparentFX

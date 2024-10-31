@@ -17,8 +17,19 @@ public class CheckPoint : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        checkPointManager.UpdateCheckPoint(gameObject);
-        DebugSave(player.transform, "체크포인트 세이브!");
+        if(this.CompareTag("Interactable"))
+        {
+            checkPointManager.UpdateCheckPoint(gameObject);
+            DebugSave(player.transform, "체크포인트 세이브!");
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            checkPointManager.UpdateCheckPoint(gameObject);
+        }
     }
 
     private void DebugSave(Transform target, string text)
