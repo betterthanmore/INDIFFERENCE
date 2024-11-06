@@ -10,12 +10,13 @@ public class EnemyMove : MonoBehaviour
     Animator animator;
     public int moveRan;         //moveRandom
     public bool isAttacking = false;
+    public float moveSpeed = 1.0f;
 
     public int maxHealth = 50;
     private int currentHealth;
-    private bool isDead = false;
+    public bool isDead = false;
 
-
+    private Coroutine moveCoroutine;
 
     void Awake()
     {
@@ -25,18 +26,21 @@ public class EnemyMove : MonoBehaviour
     }
     void Start()
     {
-        StartCoroutine("monsterAI");
+        moveCoroutine = StartCoroutine(monsterAI());
         currentHealth = maxHealth;
     }
     void Update()
     {
-        if (rigid.velocity.x > 0.1f)
+        if (!isDead && !isAttacking)
         {
-            spriteRenderer.flipX = true;
-        }
-        else
-        {
-            spriteRenderer.flipX = false;
+            if (rigid.velocity.x > 0.1f)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (rigid.velocity.x < -0.1f)
+            {
+                spriteRenderer.flipX = false;
+            }
         }
     }
 
@@ -51,7 +55,7 @@ public class EnemyMove : MonoBehaviour
             // 바닥이 있을 때만 이동
             if (rayHit.collider != null)
             {
-                rigid.velocity = new Vector2(moveRan, rigid.velocity.y);
+                rigid.velocity = new Vector2(moveRan * moveSpeed, rigid.velocity.y);
             }
         }
 
@@ -69,26 +73,32 @@ public class EnemyMove : MonoBehaviour
 
     public void startMove()
     {
-        StartCoroutine("monsterAI");
+        if (!isDead && !isAttacking && moveCoroutine == null)
+        {
+            moveCoroutine = StartCoroutine(monsterAI());
+        }
     }
 
     public void stopMove()
     {
-        StopCoroutine("monsterAI");
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
     }
 
     public void StartAttack()
     {
         isAttacking = true;
         animator.SetBool("isAttacking", true);
-        // 공격 애니메이션이나 로직 추가
     }
 
     public void EndAttack()
     {
         isAttacking = false;
         animator.SetBool("isAttacking", false);
-        StartCoroutine("monsterAI");
+        startMove();
     }
     public void TakeDamage(int damage)
     {
@@ -106,8 +116,10 @@ public class EnemyMove : MonoBehaviour
     public void Die()
     {
         isDead = true; 
-        animator.SetTrigger("isDead"); 
-        Destroy(gameObject, 1.0f);
+        animator.SetTrigger("isDead");
+        isAttacking = false;
+        stopMove();
+        Destroy(gameObject,1.0f);
     }
 
 }

@@ -4,32 +4,48 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    private float attackCooldown = 2f;
+    public float attackCooldown = 2f;
     private float lastAttackTime;
 
     public EnemyMove enemyMove;
+    private PlayerInfo playerInfo;
+
+    private void Awake()
+    {
+        enemyMove = transform.parent.GetComponent<EnemyMove>();
+        playerInfo = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!enemyMove.isDead && collision.gameObject.CompareTag("Player"))
         {
-            if (Time.time >= lastAttackTime + attackCooldown)
+            if (!enemyMove.isAttacking && Time.time >= lastAttackTime + attackCooldown)
             {
                 AttackPlayer();
-                lastAttackTime = Time.time; // 마지막 공격 시간을 업데이트
+                lastAttackTime = Time.time;  // 마지막 공격 시간을 기록
             }
         }
     }
     private void AttackPlayer()
     {
+        StartCoroutine(AttackPlayerCoroutine());
+        lastAttackTime = Time.time;
+    }
+
+    private IEnumerator AttackPlayerCoroutine()
+    {
         enemyMove.StartAttack();
         Debug.Log("플레이어가 공격 범위에 있습니다. 공격합니다!");
 
-        Invoke(nameof(EndAttack), 1f); // 1초 후 공격 종료
-    }
+        if (playerInfo != null)
+        {
+            Vector2 enemyPosition = transform.position;
+            playerInfo.TakeDamage(10, enemyPosition); // 예시로 데미지를 10으로 설정
+        }
 
-    private void EndAttack()
-    {
-        enemyMove.EndAttack(); // 공격 종료
+        yield return new WaitForSeconds(1f);
+
+        enemyMove.EndAttack();
     }
 }

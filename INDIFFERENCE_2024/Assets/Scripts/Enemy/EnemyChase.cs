@@ -4,26 +4,43 @@ using UnityEngine;
 
 public class EnemyChase : MonoBehaviour
 {
+    private EnemyMove enemyMove;
+    private void Awake()
+    {
+        enemyMove = transform.parent.GetComponent<EnemyMove>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // find player
-        if (collision.gameObject.tag == "Player")
+        if (!enemyMove.isDead && collision.gameObject.CompareTag("Player"))
         {
-            transform.parent.GetComponent<EnemyMove>().stopMove();
+            enemyMove.stopMove();  // 이동을 멈추고 추적을 시작
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!enemyMove.isDead && collision.gameObject.CompareTag("Player"))
+        {
             Vector3 playerPosition = collision.transform.position;
-            if (playerPosition.x > transform.position.x)
+
+            if (!enemyMove.isAttacking)
             {
-                transform.parent.GetComponent<EnemyMove>().moveRan = 3;     // speed up
-            }
-            else if (playerPosition.x < transform.position.x)
-            {
-                transform.parent.GetComponent<EnemyMove>().moveRan = -3;
+                if (playerPosition.x > transform.position.x)
+                {
+                    enemyMove.moveRan = 3;
+                }
+                else if (playerPosition.x < transform.position.x)
+                {
+                    enemyMove.moveRan = -3;
+                }
             }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
-            transform.parent.GetComponent<EnemyMove>().startMove();
+        if (!enemyMove.isDead && !enemyMove.isAttacking && collision.gameObject.CompareTag("Player"))
+        {
+            enemyMove.startMove();
+        }
     }
 }
