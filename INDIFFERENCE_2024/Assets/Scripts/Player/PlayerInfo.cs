@@ -60,6 +60,7 @@ public class PlayerInfo : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        Debug.Log($"현재 채력 :{currentHealth}" );
     }
 
     private void UpdateSoul(int soul)
