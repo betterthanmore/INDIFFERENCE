@@ -12,6 +12,7 @@ TagManager:
   - Point
   - Key
   - Interactable
+  - UI Canvas
   layers:
   - Default
   - TransparentFX
