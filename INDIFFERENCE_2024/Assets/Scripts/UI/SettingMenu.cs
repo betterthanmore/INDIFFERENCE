@@ -20,6 +20,10 @@ public class SettingMenu : MonoBehaviour
         {
             Pause();
         }
+        else if(isPaused && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Resume();
+        }
     }
 
     public void Resume()

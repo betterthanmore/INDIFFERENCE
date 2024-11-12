@@ -7,7 +7,6 @@ public class ItemPickup : MonoBehaviour
     public string itemName;
     public Sprite itemIcon;
     public int maxStackSize = 10;
-    public int healAmount = 20;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

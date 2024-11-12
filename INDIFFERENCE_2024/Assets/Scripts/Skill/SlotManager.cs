@@ -4,17 +4,30 @@ using System.Collections.Generic;
 public class SlotManager : MonoBehaviour
 {
     [SerializeField] private List<SkillSlot> allSlots;
+    public static SlotManager Instance;
 
-    void Start()
+    public void Awake()
     {
-        SkillManager.Instance.RegisterSlots(allSlots);
-    }
-
-    public void AddSlot(SkillSlot newSlot)
-    {
-        if (!allSlots.Contains(newSlot))
+        if (Instance == null)
         {
-            allSlots.Add(newSlot);
+            Instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    public void HandleSkillAssignment(Sprite skillIcon, SkillSlot targetSlot, Skill skillData)
+    {
+        foreach (var slot in allSlots)
+        {
+            if (slot.GetSlotImage() == skillIcon)
+            {
+                slot.ClearSlot();
+                Debug.Log($"'{skillData.skillName}' 스킬이 이미 다른 슬롯에 배치되어 있습니다. 해당 슬롯에서 스킬을 제거합니다.");
+                break;
+            }
+        }
+        targetSlot.SetSlot(skillIcon, skillData);
     }
 }

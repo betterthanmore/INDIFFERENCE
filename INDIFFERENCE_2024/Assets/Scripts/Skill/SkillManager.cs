@@ -1,30 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    public GameObject SkillOrb;
-    public Transform Target;
     public static SkillManager Instance;
-    [SerializeField] private List<SkillSlot> skillSlots;
-    public void AssignSkillToSlot(SkillSlot targetSlot, Sprite newSkillSprite)
-    {
-        foreach (var slot in skillSlots)
-        {
-            if (slot.GetSlotImage() == newSkillSprite)
-            {
-                slot.ClearSlot();
-            }
-        }
-
-        targetSlot.SetSlotImage(newSkillSprite);
-    }
-    public void RegisterSlots(List<SkillSlot> slots)
-    {
-        skillSlots = slots;
-    }
+    [SerializeField]
+    private Dictionary<KeyCode, SkillSlot> slotKeyMapping = new Dictionary<KeyCode, SkillSlot>();
 
     private void Awake()
     {
@@ -37,19 +18,39 @@ public class SkillManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Update()
+
+    public void SetSlotKeyMapping(KeyCode key, SkillSlot slot)
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        slotKeyMapping[key] = slot;
+
+        Debug.Log($"{key} 키가 {slot.name} 슬롯에 매핑되었습니다.");
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            //currentZSkill
+            UseSkillInSlot(KeyCode.Z);
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            //currentXSkill
+            UseSkillInSlot(KeyCode.X);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            //currentCSkill
+            UseSkillInSlot(KeyCode.C);
+        }
+    }
+
+    private void UseSkillInSlot(KeyCode key)
+    {
+        if (slotKeyMapping.TryGetValue(key, out SkillSlot slot))
+        {
+            slot.UseSkill();
+        }
+        else
+        {
+            Debug.Log("할당된 스킬이 없습니다.");
         }
     }
 }

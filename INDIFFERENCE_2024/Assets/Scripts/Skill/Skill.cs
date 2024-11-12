@@ -1,19 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
-public class Skill
+public class Skill : MonoBehaviour
 {
-    public string skillName;      
-    public Sprite skillIcon;      
+    public string skillName;        
+    public Sprite skillIcon;        
     public string skillDescription; 
 
-    public Skill(string name, Sprite icon, string description)
+    public float cooldown;         
+    private float lastUsedTime = -Mathf.Infinity; 
+
+    public bool IsCooldownComplete()
     {
-        skillName = name;
-        skillIcon = icon;
-        skillDescription = description;
-    }   
+        return Time.time >= lastUsedTime + cooldown;
+    }
+    public void UseSkill()
+    {
+        if (IsCooldownComplete())
+        {
+            lastUsedTime = Time.time;
+            Debug.Log($"{skillName} 스킬 사용!");
+        }
+        else
+        {
+            Debug.Log($"{skillName} 스킬이 아직 쿨타임 중입니다.");
+        }
+    }
 }
