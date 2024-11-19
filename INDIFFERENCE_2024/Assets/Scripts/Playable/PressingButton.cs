@@ -11,7 +11,7 @@ public class PressingButton : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player") || other.CompareTag("Object"))
+        if (other.CompareTag("Player") || other.CompareTag("Object"))
         {
             PressButton();
         }
@@ -28,11 +28,11 @@ public class PressingButton : MonoBehaviour
         {
             isPressed = true;
             Debug.Log("Button Pressed!");
-            if(buttonPressed != null)
+            if (buttonPressed != null)
             {
                 buttonPressed.SetActive(true);
             }
-            if(buttonChecker != null)
+            if (buttonChecker != null)
             {
                 buttonChecker.ButtonPressed(buttonIndex);           //버튼이 눌렸을 때 ButtonPuzzle에 알림
             }
@@ -53,6 +53,10 @@ public class PressingButton : MonoBehaviour
                 buttonPressed.SetActive(false);
             }
             Debug.Log("Button Released!");
+            if (buttonChecker != null)
+            {
+                buttonChecker.ButtonReleased(buttonIndex); // 버튼이 해제되었을 때 알림
+            }
         }
     }
 }
