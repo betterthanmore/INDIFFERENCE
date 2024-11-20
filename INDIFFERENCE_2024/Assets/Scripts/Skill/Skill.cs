@@ -14,7 +14,7 @@ public class Skill : MonoBehaviour
     {
         return Time.time >= lastUsedTime + cooldown;
     }
-    public void UseSkill()
+    public virtual void UseSkill()
     {
         if (IsCooldownComplete())
         {

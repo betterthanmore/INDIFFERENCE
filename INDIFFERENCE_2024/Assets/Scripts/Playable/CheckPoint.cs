@@ -24,14 +24,6 @@ public class CheckPoint : MonoBehaviour, IInteractable
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            checkPointManager.UpdateCheckPoint(gameObject);
-        }
-    }
-
     private void DebugSave(Transform target, string text)
     {
         Vector3 spawnPosition = new Vector3(target.position.x, target.position.y + 1f, 0f); 

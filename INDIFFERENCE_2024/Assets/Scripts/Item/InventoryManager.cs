@@ -13,10 +13,9 @@ public class InventoryManager : MonoBehaviour
         public Sprite itemIcon;
         public int currentStackSize;
 
-        // 아이템 사용 효과
         public void Use(PlayerInfo player)
         {
-            if (itemName == "Health Potion")
+            if (itemName == "Potion")
             {
                 player.Heal(50);
                 currentStackSize--;
@@ -30,6 +29,22 @@ public class InventoryManager : MonoBehaviour
             {
                 player.Heal(100);
                 currentStackSize--;
+            }
+            else if (itemName == "Key")
+            {
+                float interactionRadius = 2f; 
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(player.transform.position, interactionRadius);
+
+                foreach (var collider in colliders)
+                {
+                    Door door = collider.GetComponent<Door>();
+                    if (door != null) 
+                    {
+                        player.StartCoroutine(door.ToggleDoor());
+                        currentStackSize--;
+                        break; 
+                    }
+                }
             }
         }
     }
