@@ -1,153 +1,171 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Map : MonoBehaviour, IScrollHandler, IDragHandler, IBeginDragHandler
+public class Map : MonoBehaviour
 {
-    public RawImage fogImage; 
     public Transform player; 
+    public int fogTextureSize = 256; 
     public float revealRadius = 5f; 
-    private Texture2D fogTexture; 
+    public Color fogColor = Color.black; 
+    public Color revealedColor = Color.clear; 
+    public RectTransform mapUI; 
+    public RectTransform objectIconsParent; 
+    public GameObject objectIconPrefab; 
+    public List<Vector2> objectPositions; 
 
-    public GameObject mapUI; 
-    public RectTransform mapRect; 
-    public float zoomSpeed = 0.1f; 
-    public float minZoom = 0.5f; 
-    public float maxZoom = 2.0f; 
-    private float currentZoom = 1.0f; 
+    [Header("Map Interaction")]
+    public float minZoom = 1f; 
+    public float maxZoom = 5f; 
+    public float zoomSpeed = 1f; 
+    public float dragSpeed = 1f; 
 
-    private Vector2 lastMousePosition; 
-    private Vector3 lastPlayerPosition; 
-
-    public Vector2 worldSize = new Vector2(100, 100); 
-    public Vector2 mapSize; 
+    private Texture2D fogOfWarTexture;
+    private Color[] fogColors;
+    private Vector2 lastPlayerPosition;
+    private float updateThreshold = 0.5f; 
+    private Queue<GameObject> iconPool = new Queue<GameObject>(); 
+    private Vector3 dragStartPos; 
+    private Vector3 originalMapPos; 
+    private float currentZoom = 1f; 
 
     void Start()
     {
-        mapSize = new Vector2(mapRect.rect.width, mapRect.rect.height);
-
-        fogTexture = new Texture2D((int)fogImage.rectTransform.rect.width, (int)fogImage.rectTransform.rect.height);
-        for (int y = 0; y < fogTexture.height; y++)
-        {
-            for (int x = 0; x < fogTexture.width; x++)
-            {
-                fogTexture.SetPixel(x, y, Color.black); 
-            }
-        }
-        fogTexture.Apply();
-        fogImage.texture = fogTexture;
-
-        lastPlayerPosition = player.position;
+        InitializeFogOfWar();
+        InitializeObjectIcons();
     }
 
     void Update()
     {
-        if (Vector3.Distance(player.position, lastPlayerPosition) > 0.1f)
-        {
-            Vector2 playerPosOnMap = WorldToMapPosition(player.position);
-            RevealFog(playerPosOnMap, revealRadius);
-            lastPlayerPosition = player.position;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.M))
-        {
-            mapUI.SetActive(!mapUI.activeSelf);
-        }
+        HandleMapZoom();
+        HandleMapDrag();
+        UpdateFogOfWar();
     }
 
-    //월드 좌표를 맵 좌표로 변환
-    Vector2 WorldToMapPosition(Vector3 worldPos)
+    // 안개 텍스처 초기화
+    void InitializeFogOfWar()
     {
-        RectTransform fogRect = fogImage.rectTransform;
-        float mapWidth = fogRect.rect.width;
-        float mapHeight = fogRect.rect.height;
+        fogOfWarTexture = new Texture2D(fogTextureSize, fogTextureSize);
+        fogColors = new Color[fogTextureSize * fogTextureSize];
+        for (int i = 0; i < fogColors.Length; i++)
+        {
+            fogColors[i] = fogColor; 
+        }
+        fogOfWarTexture.SetPixels(fogColors);
+        fogOfWarTexture.Apply();
 
-        float x = (worldPos.x / worldSize.x) * mapWidth;
-        float y = (worldPos.y / worldSize.y) * mapHeight; 
-
-        return new Vector2(x, y);
+        mapUI.GetComponent<RawImage>().texture = fogOfWarTexture;   
     }
 
-    //안개 제거 로직
-    void RevealFog(Vector2 center, float radius)
+    // 플레이어 이동에 따른 안개 업데이트
+    void UpdateFogOfWar()
     {
-        int texWidth = fogTexture.width;
-        int texHeight = fogTexture.height;
-        int revealRadiusInPixels = Mathf.RoundToInt(radius * texWidth / mapSize.x); //맵 크기 기반 반경 픽셀 수 계산
+        if (Vector2.Distance(player.position, lastPlayerPosition) < updateThreshold)
+            return;
 
-        int startX = Mathf.Clamp(Mathf.RoundToInt(center.x - revealRadiusInPixels), 0, texWidth);
-        int startY = Mathf.Clamp(Mathf.RoundToInt(center.y - revealRadiusInPixels), 0, texHeight);
-        int endX = Mathf.Clamp(Mathf.RoundToInt(center.x + revealRadiusInPixels), 0, texWidth);
-        int endY = Mathf.Clamp(Mathf.RoundToInt(center.y + revealRadiusInPixels), 0, texHeight);
+        lastPlayerPosition = player.position;
+        Vector2Int playerFogPos = WorldToFogPosition(player.position);
+        int radiusInPixels = Mathf.RoundToInt(revealRadius * fogTextureSize / mapUI.rect.width);
 
-        for (int y = startY; y < endY; y++)
+        for (int y = -radiusInPixels; y <= radiusInPixels; y++)
         {
-            for (int x = startX; x < endX; x++)
+            for (int x = -radiusInPixels; x <= radiusInPixels; x++)
             {
-                fogTexture.SetPixel(x, y, Color.clear); 
+                int px = playerFogPos.x + x;
+                int py = playerFogPos.y + y;
+
+                if (px < 0 || px >= fogTextureSize || py < 0 || py >= fogTextureSize)
+                    continue;
+
+                float distance = Mathf.Sqrt(x * x + y * y);
+                if (distance <= radiusInPixels)
+                {
+                    int pixelIndex = py * fogTextureSize + px;
+                    fogColors[pixelIndex] = revealedColor;
+                }
             }
         }
 
-        fogTexture.Apply();
+        fogOfWarTexture.SetPixels(fogColors);
+        fogOfWarTexture.Apply();
     }
 
-    public void OnScroll(PointerEventData eventData)
+    // 월드 좌표를 Fog of War 텍스처 좌표로 변환
+    Vector2Int WorldToFogPosition(Vector2 worldPosition)
     {
-        if (eventData.scrollDelta.y > 0)
+        Vector2 normalizedPosition = new Vector2(
+            (worldPosition.x - mapUI.rect.xMin) / mapUI.rect.width,
+            (worldPosition.y - mapUI.rect.yMin) / mapUI.rect.height
+        );
+
+        return new Vector2Int(
+            Mathf.Clamp(Mathf.RoundToInt(normalizedPosition.x * fogTextureSize), 0, fogTextureSize - 1),
+            Mathf.Clamp(Mathf.RoundToInt(normalizedPosition.y * fogTextureSize), 0, fogTextureSize - 1)
+        );
+    }
+
+    // 맵 오브젝트 아이콘 초기화
+    void InitializeObjectIcons()
+    {
+        foreach (Vector2 objPosition in objectPositions)
         {
-            ZoomIn();
+            GameObject icon = GetPooledIcon();
+            Vector2 mapPosition = WorldToMapPosition(objPosition);
+            icon.GetComponent<RectTransform>().anchoredPosition = mapPosition;
         }
-        else if (eventData.scrollDelta.y < 0)
+    }
+
+    // 오브젝트 아이콘 풀링에서 가져오기
+    GameObject GetPooledIcon()
+    {
+        if (iconPool.Count > 0)
         {
-            ZoomOut();
+            GameObject icon = iconPool.Dequeue();
+            icon.SetActive(true);
+            return icon;
+        }
+
+        return Instantiate(objectIconPrefab, objectIconsParent);
+    }
+
+    // 월드 좌표를 맵 좌표로 변환
+    Vector2 WorldToMapPosition(Vector2 worldPosition)
+    {
+        Vector2 normalizedPosition = new Vector2(
+            (worldPosition.x - mapUI.rect.xMin) / mapUI.rect.width,
+            (worldPosition.y - mapUI.rect.yMin) / mapUI.rect.height
+        );
+
+        return new Vector2(
+            normalizedPosition.x * mapUI.rect.width,
+            normalizedPosition.y * mapUI.rect.height
+        );
+    }
+
+    // 맵 확대/축소 처리
+    void HandleMapZoom()
+    {
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(scrollInput) > 0.01f)
+        {
+            currentZoom = Mathf.Clamp(currentZoom - scrollInput * zoomSpeed, minZoom, maxZoom);
+            mapUI.localScale = Vector3.one * currentZoom;
         }
     }
 
-    //확대
-    void ZoomIn()
+    // 맵 드래그 처리
+    void HandleMapDrag()
     {
-        currentZoom = Mathf.Clamp(currentZoom + zoomSpeed, minZoom, maxZoom);
-        mapRect.localScale = new Vector3(currentZoom, currentZoom, 1);
-        ClampMapPosition();
-    }
+        if (Input.GetMouseButtonDown(0))
+        {
+            dragStartPos = Input.mousePosition;
+            originalMapPos = mapUI.localPosition;
+        }
 
-    //축소
-    void ZoomOut()
-    {
-        currentZoom = Mathf.Clamp(currentZoom - zoomSpeed, minZoom, maxZoom);
-        mapRect.localScale = new Vector3(currentZoom, currentZoom, 1);
-        ClampMapPosition();
-    }
-
-    //드래그 시작
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        lastMousePosition = eventData.position;
-    }
-
-    //드래그 중
-    public void OnDrag(PointerEventData eventData)
-    {
-        Vector2 currentMousePosition = eventData.position;
-        Vector2 diff = currentMousePosition - lastMousePosition;
-
-        mapRect.anchoredPosition += diff;
-        lastMousePosition = currentMousePosition;
-
-        ClampMapPosition();
-    }
-
-    //드래그 화면 밖으로 나가지 않도록 제한
-    void ClampMapPosition()
-    {
-        Vector3 pos = mapRect.anchoredPosition;
-
-        float maxX = (mapRect.rect.width * currentZoom - mapSize.x) / 2f;
-        float maxY = (mapRect.rect.height * currentZoom - mapSize.y) / 2f;
-
-        pos.x = Mathf.Clamp(pos.x, -maxX, maxX);
-        pos.y = Mathf.Clamp(pos.y, -maxY, maxY);
-
-        mapRect.anchoredPosition = pos;
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 dragDelta = (Input.mousePosition - dragStartPos) * dragSpeed;
+            mapUI.localPosition = originalMapPos + dragDelta;
+        }
     }
 }
