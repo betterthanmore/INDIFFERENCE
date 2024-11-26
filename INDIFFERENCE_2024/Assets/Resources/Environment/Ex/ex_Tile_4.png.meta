@@ -1,0 +1,1324 @@
+fileFormatVersion: 2
+guid: 31d2c586bdca489468e85b5037ca91fd
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 4
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ex_Tile_4_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 434
+        width: 75
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f7a20026a1f5014b9320cc55a9dee86
+      internalID: 573907921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 241
+        width: 225
+        height: 273
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a12eb30f57b71ae45b411160f598b3d7
+      internalID: 701438249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_2
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 458
+        width: 92
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f8c549bac5321148a7150535c8920c0
+      internalID: -1136412286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_3
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 300
+        width: 240
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78d6efe2b506c6c4784c5380b7856873
+      internalID: -1719445728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_4
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 455
+        width: 47
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f645e616f8e085a4bad649335f0340f4
+      internalID: -457331618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_5
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 335
+        width: 70
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd180a9c9dd85264ba3e47d5758d6d13
+      internalID: -794206014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_6
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 462
+        width: 41
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28e92f244d21bcc48b9817a21dcf4402
+      internalID: 1226517543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_7
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 472
+        width: 38
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e17d5798b770bc34e97d168828ee987b
+      internalID: -1336879335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_8
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 473
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f522b9a6aa45aaf4e996e8e107fe53aa
+      internalID: -281175921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_9
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 474
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53b55252cd77e0d468a6e01e3ab4e336
+      internalID: 1952434656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_10
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 438
+        width: 190
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e404e125b4940d46bc929af4bde6a10
+      internalID: 1462997300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_11
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 379
+        width: 80
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b86db3030b1b20541b46c1beedcf4837
+      internalID: 1827945668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_12
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 399
+        width: 52
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2c36cc6e22d5ac459a244956e4c2fb6
+      internalID: -1357442029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_13
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 440
+        width: 98
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f3087a0006df734dad295c1469213c5
+      internalID: -533635490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_14
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 414
+        width: 43
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2410cb3b4d018ec4eb36a211644aedf7
+      internalID: 329840302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_15
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 358
+        width: 33
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e25c58d0bf2f2714c879b30d71f2ac72
+      internalID: -270849642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_16
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 395
+        width: 34
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e73f5e165280914a825ace87dbcc6b2
+      internalID: 1724648051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_17
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 408
+        width: 47
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d96ab0105391c9845adf65e336535300
+      internalID: 1793744582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_18
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 387
+        width: 63
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 149d7ea8098f4d848b00fee613cfd202
+      internalID: -2128106180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_19
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 387
+        width: 83
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d39947b570b00e4ba953b399916a65c
+      internalID: -1585228642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_20
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 329
+        width: 42
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dabcf372ea99294c803f82d4bd1536b
+      internalID: 1021196090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_21
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 246
+        width: 59
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d35811f6b5bfbe45a73a66e8cc7e969
+      internalID: -1025408310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_22
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 308
+        width: 137
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00e9aa500f1e7004abe534c029a521d5
+      internalID: -574043760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_23
+      rect:
+        serializedVersion: 2
+        x: 914
+        y: 309
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cca7d85c55df59743a783f5b0262adb4
+      internalID: -1705080194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_24
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 237
+        width: 68
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a50437bbcf486964dbbe92cd3bfe8ab3
+      internalID: -695091428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_25
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 153
+        width: 62
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ec02266ffb87fa43b10c05bf66caf3a
+      internalID: -1059781952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_26
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 156
+        width: 109
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c71e3bda9d6d5d14b967987f50529fbd
+      internalID: 1209877255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_27
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 156
+        width: 73
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c710556d921da144ab1f7c1e785ba5bd
+      internalID: 1992391512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_28
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 146
+        width: 81
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38fbfed7838d60e4286095773a744ab4
+      internalID: -279224450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_29
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 264
+        width: 91
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 003a78b0192f4e641812a26a0141ef33
+      internalID: 1542777532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_30
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 267
+        width: 74
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7435e5f02bd55b54e9ef91604f51f94e
+      internalID: 1180115579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_31
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 179
+        width: 60
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc05076840608e84c914572a3d052622
+      internalID: 1146239844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_32
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 193
+        width: 104
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28f8dbb1abce3aa488223ae60e9a4c47
+      internalID: -1354367768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_33
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 189
+        width: 65
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be5451d7e02106143868eca01289b498
+      internalID: -1962726345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_34
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 158
+        width: 79
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0d21b251fa2adb44b4d37e194c66ba6
+      internalID: -757267378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_35
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 153
+        width: 46
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51749840bf8e4294bbf31979a343dfa8
+      internalID: 1313132735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_36
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 150
+        width: 85
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7ebb9474075d0f44ac3c1412b151a11
+      internalID: -2085702959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_37
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 144
+        width: 48
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6ec0a6c7fa6a304b9a55adb808b93e5
+      internalID: 337457014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_38
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 147
+        width: 37
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7522684f37613fd46939b1caf2993ab5
+      internalID: -449265543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_39
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 140
+        width: 66
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 749f60cef0fd06f49b3172898c85bed9
+      internalID: 808039889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_40
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 145
+        width: 62
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 387e7c60edd52934f899259a9d853948
+      internalID: -1797224581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_41
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 64
+        width: 39
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49aa27f682ec61d468fc1eba094cd3ee
+      internalID: -151892638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_42
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 109
+        width: 54
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e00e8928f1cae0d4b94f77ee5295b938
+      internalID: -423258605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_43
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 109
+        width: 57
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08fa56c15982a1a4c8032e7475968314
+      internalID: 1353043118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_44
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 109
+        width: 65
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bfe74151abd08148aa1191eb4e1791d
+      internalID: -335594630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_45
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 109
+        width: 37
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da2c3ca923a0aef489cb5235e494e962
+      internalID: -329727179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_46
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 105
+        width: 44
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ca695b4908eb0d42b2845ab77017e6b
+      internalID: -1246442927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_47
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 26
+        width: 141
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eecdd72b4dcaf24c9d034e3cc934ae2
+      internalID: 292353493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_48
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 57
+        width: 157
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec321656745c05b4484ed5f374a9e9ae
+      internalID: -306773022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_49
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 70
+        width: 54
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2210f0069a597dc49b19eb07363ffb99
+      internalID: -1263559659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_50
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 65
+        width: 40
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4614b4882ec1e4e48aba2cccc044b203
+      internalID: 187746770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_51
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 26
+        width: 96
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e844964f53b3ea949accd138e199e5f0
+      internalID: 900354472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_52
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 9
+        width: 185
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba3e9e96bed6b32498a19a8d23bf3f63
+      internalID: -1687269141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_53
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 26
+        width: 100
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e027874586df8bf44b3ab2d5f95101c4
+      internalID: -2048073259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_Tile_4_54
+      rect:
+        serializedVersion: 2
+        x: 957
+        y: 24
+        width: 48
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ac32654eb3213445b4471aa50162273
+      internalID: -92535286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ex_Tile_4_0: 573907921
+      ex_Tile_4_1: 701438249
+      ex_Tile_4_10: 1462997300
+      ex_Tile_4_11: 1827945668
+      ex_Tile_4_12: -1357442029
+      ex_Tile_4_13: -533635490
+      ex_Tile_4_14: 329840302
+      ex_Tile_4_15: -270849642
+      ex_Tile_4_16: 1724648051
+      ex_Tile_4_17: 1793744582
+      ex_Tile_4_18: -2128106180
+      ex_Tile_4_19: -1585228642
+      ex_Tile_4_2: -1136412286
+      ex_Tile_4_20: 1021196090
+      ex_Tile_4_21: -1025408310
+      ex_Tile_4_22: -574043760
+      ex_Tile_4_23: -1705080194
+      ex_Tile_4_24: -695091428
+      ex_Tile_4_25: -1059781952
+      ex_Tile_4_26: 1209877255
+      ex_Tile_4_27: 1992391512
+      ex_Tile_4_28: -279224450
+      ex_Tile_4_29: 1542777532
+      ex_Tile_4_3: -1719445728
+      ex_Tile_4_30: 1180115579
+      ex_Tile_4_31: 1146239844
+      ex_Tile_4_32: -1354367768
+      ex_Tile_4_33: -1962726345
+      ex_Tile_4_34: -757267378
+      ex_Tile_4_35: 1313132735
+      ex_Tile_4_36: -2085702959
+      ex_Tile_4_37: 337457014
+      ex_Tile_4_38: -449265543
+      ex_Tile_4_39: 808039889
+      ex_Tile_4_4: -457331618
+      ex_Tile_4_40: -1797224581
+      ex_Tile_4_41: -151892638
+      ex_Tile_4_42: -423258605
+      ex_Tile_4_43: 1353043118
+      ex_Tile_4_44: -335594630
+      ex_Tile_4_45: -329727179
+      ex_Tile_4_46: -1246442927
+      ex_Tile_4_47: 292353493
+      ex_Tile_4_48: -306773022
+      ex_Tile_4_49: -1263559659
+      ex_Tile_4_5: -794206014
+      ex_Tile_4_50: 187746770
+      ex_Tile_4_51: 900354472
+      ex_Tile_4_52: -1687269141
+      ex_Tile_4_53: -2048073259
+      ex_Tile_4_54: -92535286
+      ex_Tile_4_6: 1226517543
+      ex_Tile_4_7: -1336879335
+      ex_Tile_4_8: -281175921
+      ex_Tile_4_9: 1952434656
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
