@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private bool isOnJumpPad = false;
     private bool isNearObject = false;
+    private bool isInverted = false;
 
     public bool isOn_Mp = false;
     public Rigidbody2D platformRb;
@@ -73,9 +74,14 @@ public class PlayerController : MonoBehaviour
         {
             // 플레이어 이동 입력 처리
             input = Input.GetAxisRaw("Horizontal");
-            
-            
-            if(isGrounded && Input.GetKeyDown(KeyCode.LeftShift))
+
+            if (isInverted)
+            {
+                input *= -1;
+            }
+
+
+            if (isGrounded && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 isRunning = true;
             }
@@ -155,6 +161,12 @@ public class PlayerController : MonoBehaviour
             currentInteractionText.transform.position = originalPosition + new Vector3(0, 1 + Mathf.Sin(Time.time * floatSpeed) * floatAmount, 0);
         }
     }
+
+    public void InvertControls(bool invert)
+    {
+        isInverted = invert;
+    }
+
     private void FixedUpdate()
     {
         if (!canMove || isOnJumpPad)
