@@ -13,7 +13,9 @@ public class Map : MonoBehaviour
     public RectTransform fogUI;
     public RectTransform objectIconsParent; 
     public GameObject objectIconPrefab; 
-    public List<Vector2> objectPositions; 
+    public List<Vector2> objectPositions;
+    public GameObject mapObjcet;
+    public GameObject optionWindow;
 
     [Header("Map Interaction")]
     public float minZoom = 1f; 
@@ -41,8 +43,11 @@ public class Map : MonoBehaviour
 
     void Update()
     {
-        HandleMapZoom();
-        HandleMapDrag();
+        if (mapObjcet.gameObject.activeSelf == true && optionWindow.gameObject.activeSelf == true)
+        {
+            HandleMapZoom();
+            HandleMapDrag();
+        }
         UpdateFogOfWar();
     }
 
