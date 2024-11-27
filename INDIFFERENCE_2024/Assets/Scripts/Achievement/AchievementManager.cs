@@ -8,20 +8,25 @@ public class Achievement
     public string name;
     public string description;
     public bool isUnlocked;
+    public AchievementCondition condition;
 
-    public Achievement(string name, string description)
+    public Achievement(string name, string description, AchievementCondition condition = null)
     {
         this.name = name;
         this.description = description;
         this.isUnlocked = false;
+        this.condition = condition;
     }
 
     public void Unlock()
     {
-        if (!isUnlocked)
+        if (condition != null && condition.IsConditionMet())
         {
-            isUnlocked = true;
-            Debug.Log($"Achievement Unlocked: {name}");
+            if (!isUnlocked)
+            {
+                isUnlocked = true;
+                Debug.Log($"Achievement Unlocked: {name}");
+            }
         }
     }
 }
@@ -29,10 +34,16 @@ public class Achievement
 public class AchievementManager : MonoBehaviour
 {
     public List<Achievement> achievements = new List<Achievement>();
+    public KillAchievementCondition killCondition;
 
     void Start()
     {
-        achievements.Add(new Achievement("First Kill", "Achieve your first kill in the game."));
+        killCondition = new KillAchievementCondition(1, this); 
+        achievements.Add(new Achievement("First Kill", "Achieve your first kill in the game.", killCondition));
+    }
+    public void OnEnemyKilled()
+    {
+        killCondition.AddKill();
     }
 
     public void CheckAndUnlockAchievement(string achievementName)

@@ -1786,6 +1786,10 @@ PrefabInstance:
       propertyPath: moveRan
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6651323620071409891, guid: b73aa8590743da24eac7b97af2b8958e, type: 3}
+      propertyPath: achievementManager
+      value: 
+      objectReference: {fileID: 1386877594}
     - target: {fileID: 7013025586792898869, guid: b73aa8590743da24eac7b97af2b8958e, type: 3}
       propertyPath: m_Name
       value: Enemy 1 (1)
@@ -4904,7 +4908,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6833296900436886878, guid: c9116e28e1400754f8c6d5ddd8d242ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1386877594}
   m_SourcePrefab: {fileID: 100100000, guid: c9116e28e1400754f8c6d5ddd8d242ad, type: 3}
 --- !u!1001 &716012613
 PrefabInstance:
@@ -9889,6 +9896,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6651323620071409891, guid: b73aa8590743da24eac7b97af2b8958e, type: 3}
+      propertyPath: achievementManager
+      value: 
+      objectReference: {fileID: 1386877594}
     - target: {fileID: 7013025586792898869, guid: b73aa8590743da24eac7b97af2b8958e, type: 3}
       propertyPath: m_Name
       value: Enemy 1
@@ -9987,6 +9998,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1386877593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6833296900436886878, guid: c9116e28e1400754f8c6d5ddd8d242ad, type: 3}
+  m_PrefabInstance: {fileID: 678626551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1386877594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386877593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65049afe005e0b64d9cd3991e7e3c029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  achievements: []
 --- !u!1 &1389121355
 GameObject:
   m_ObjectHideFlags: 0
