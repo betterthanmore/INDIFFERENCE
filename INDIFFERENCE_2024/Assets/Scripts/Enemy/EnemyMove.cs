@@ -18,6 +18,8 @@ public class EnemyMove : MonoBehaviour
 
     private Coroutine moveCoroutine;
 
+    public AchievementManager achievementManager;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -119,7 +121,7 @@ public class EnemyMove : MonoBehaviour
         animator.SetTrigger("isDead");
         isAttacking = false;
         stopMove();
+        achievementManager.OnEnemyKilled();
         Destroy(gameObject,1.0f);
     }
-
 }

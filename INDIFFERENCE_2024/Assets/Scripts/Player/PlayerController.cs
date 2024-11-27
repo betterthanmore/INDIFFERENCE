@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // 상호작용
-            if (Input.GetKeyDown(KeyCode.F) && interactableObj != null)
+            if (Input.GetKeyDown(KeyCode.F ) && interactableObj != null)
             {
                 interactableObj.Interact();
             }
