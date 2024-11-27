@@ -9,7 +9,8 @@ public class Map : MonoBehaviour
     public float revealRadius = 5f; 
     public Color fogColor = Color.black; 
     public Color revealedColor = Color.clear; 
-    public RectTransform mapUI; 
+    public RectTransform mapUI;
+    public RectTransform fogUI;
     public RectTransform objectIconsParent; 
     public GameObject objectIconPrefab; 
     public List<Vector2> objectPositions; 
@@ -20,14 +21,17 @@ public class Map : MonoBehaviour
     public float zoomSpeed = 1f; 
     public float dragSpeed = 1f; 
 
-    private Texture2D fogOfWarTexture;
+    private Texture2D fogOfWarTexture; 
     private Color[] fogColors;
     private Vector2 lastPlayerPosition;
     private float updateThreshold = 0.5f; 
     private Queue<GameObject> iconPool = new Queue<GameObject>(); 
     private Vector3 dragStartPos; 
-    private Vector3 originalMapPos; 
-    private float currentZoom = 1f; 
+    private Vector3 originalMapPos;
+    private Vector3 originalFogPos;
+    private float currentZoom = 1f;
+
+    public Vector2 initialMapPosition = new Vector2(0, 0);
 
     void Start()
     {
@@ -93,9 +97,10 @@ public class Map : MonoBehaviour
     // 월드 좌표를 Fog of War 텍스처 좌표로 변환
     Vector2Int WorldToFogPosition(Vector2 worldPosition)
     {
+        // 초기 좌표를 기준으로 월드 좌표를 변환
         Vector2 normalizedPosition = new Vector2(
-            (worldPosition.x - mapUI.rect.xMin) / mapUI.rect.width,
-            (worldPosition.y - mapUI.rect.yMin) / mapUI.rect.height
+            (worldPosition.x - (mapUI.rect.xMin + initialMapPosition.x)) / mapUI.rect.width,
+            (worldPosition.y - (mapUI.rect.yMin + initialMapPosition.y)) / mapUI.rect.height
         );
 
         return new Vector2Int(
@@ -148,8 +153,9 @@ public class Map : MonoBehaviour
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         if (Mathf.Abs(scrollInput) > 0.01f)
         {
-            currentZoom = Mathf.Clamp(currentZoom - scrollInput * zoomSpeed, minZoom, maxZoom);
+            currentZoom = Mathf.Clamp(currentZoom + scrollInput * zoomSpeed, minZoom, maxZoom);
             mapUI.localScale = Vector3.one * currentZoom;
+            fogUI.localScale = Vector3.one * currentZoom;
         }
     }
 
@@ -160,12 +166,14 @@ public class Map : MonoBehaviour
         {
             dragStartPos = Input.mousePosition;
             originalMapPos = mapUI.localPosition;
+            originalFogPos = fogUI.localPosition;
         }
 
         if (Input.GetMouseButton(0))
         {
             Vector3 dragDelta = (Input.mousePosition - dragStartPos) * dragSpeed;
             mapUI.localPosition = originalMapPos + dragDelta;
+            fogUI.localPosition = originalFogPos + dragDelta;
         }
     }
 }

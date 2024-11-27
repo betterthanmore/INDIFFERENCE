@@ -58,22 +58,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4261087795480138249
-Transform:
+--- !u!224 &4261087795480138249
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3516924374256150221}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 173, y: 8.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8719539205865726708}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &6004238248106264438
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -234,11 +238,14 @@ MonoBehaviour:
   interactionTextPrefab: {fileID: 5910428113642033810, guid: af2b358f6ae8bff4f96ca8cac0712455, type: 3}
   floatSpeed: 1
   floatAmount: 0.2
-  wallSlideSpeed: 2
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
-  wallCheckDistance: 0.1
+  wallRightCheck: {fileID: 0}
+  wallLeftCheck: {fileID: 0}
+  isWallJumping: 0
+  wallJumpingDuration: 0
+  wallJumpingPower: {x: 0, y: 0}
 --- !u!251 &4912777469308241419
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -319,7 +326,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 8}
-  m_ConnectedAnchor: {x: 173, y: 10.700001}
+  m_ConnectedAnchor: {x: 0, y: 2.4}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
