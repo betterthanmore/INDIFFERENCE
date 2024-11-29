@@ -15,8 +15,10 @@ public class SoundManager : MonoBehaviour
 
     public enum ESfx
     {
-        SFX_BUTTON,
-        SFX_MISSION_CLEAR
+        SFX_JUMP,
+        SFX_WALK,
+        SFX_RUN,
+        SFX_BUTTON
     }
 
     // 오디오 클립 배열
@@ -26,6 +28,13 @@ public class SoundManager : MonoBehaviour
     // 재생에 사용할 AudioSource
     [SerializeField] private AudioSource audioBgm;
     [SerializeField] private AudioSource audioSfx;
+
+    public AudioClip GetSfx(SoundManager.ESfx sfx)
+    {
+        return sfxs[(int)sfx];
+    }
+
+    public AudioSource AudioSfx => audioSfx; // 프로퍼티 추가
 
     // 현재 재생 중인 BGM을 추적
     private EBgm? currentBgm;
@@ -66,6 +75,7 @@ public class SoundManager : MonoBehaviour
     // 효과음 재생
     public void PlaySFX(ESfx esfx, float volume = 1.0f)
     {
+        Debug.Log($"PlaySFX called with {esfx}");
         audioSfx.PlayOneShot(sfxs[(int)esfx], volume);
     }
 
