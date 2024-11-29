@@ -136,6 +136,8 @@ public class PlayerController : MonoBehaviour
             {
                 DetachFromRope();
             }
+
+            HandleMovementSound();
         }
 
         // 플레이어가 땅에 있는지 체크
@@ -208,6 +210,7 @@ public class PlayerController : MonoBehaviour
         if(isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            SoundManager.instance.PlaySFX(SoundManager.ESfx.SFX_JUMP);
         }
         if(isWallSliding)
         {
@@ -350,4 +353,30 @@ public class PlayerController : MonoBehaviour
             currentInteractionText = null;
         }
     }
+
+    private void HandleMovementSound()
+    {
+        if (isGrounded && input != 0) // 땅에 있고 움직이는 중
+        {
+            if (isRunning) // 뛰는 중
+            {
+                if (!SoundManager.instance.AudioSfx.isPlaying) // SFX가 재생 중이지 않다면
+                {
+                    SoundManager.instance.PlaySFX(SoundManager.ESfx.SFX_RUN);
+                }
+            }
+            else // 걷는 중
+            {
+                if (!SoundManager.instance.AudioSfx.isPlaying) // SFX가 재생 중이지 않다면
+                {
+                    SoundManager.instance.PlaySFX(SoundManager.ESfx.SFX_WALK);
+                }
+            }
+        }
+        else if (SoundManager.instance.AudioSfx.isPlaying) // 멈췄을 때 소리 끄기
+        {
+            //SoundManager.instance.AudioSfx.Stop();
+        }
+    }
+
 }
