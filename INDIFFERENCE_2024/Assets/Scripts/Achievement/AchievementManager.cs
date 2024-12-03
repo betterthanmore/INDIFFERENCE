@@ -10,6 +10,8 @@ public class Achievement
     public bool isUnlocked;
     public AchievementCondition condition;
 
+    public event System.Action<Achievement> OnUnlocked;
+
     public Achievement(string name, string description, AchievementCondition condition = null)
     {
         this.name = name;
@@ -26,6 +28,7 @@ public class Achievement
             {
                 isUnlocked = true;
                 Debug.Log($"Achievement Unlocked: {name}");
+                OnUnlocked?.Invoke(this);
             }
         }
     }
@@ -34,16 +37,23 @@ public class Achievement
 public class AchievementManager : MonoBehaviour
 {
     public List<Achievement> achievements = new List<Achievement>();
-    public KillAchievementCondition killCondition;
 
     void Start()
     {
-        killCondition = new KillAchievementCondition(1, this); 
-        achievements.Add(new Achievement("First Kill", "Achieve your first kill in the game.", killCondition));
+        achievements.Add(new Achievement("First Kill", "첫 번째 적을 처치하세요.", new KillAchievementCondition(1, this)));
+        achievements.Add(new Achievement("Five Kills", "적을 5명 처치하세요.", new KillAchievementCondition(5, this)));
     }
+
     public void OnEnemyKilled()
     {
-        killCondition.AddKill();
+        foreach (Achievement achievement in achievements)
+        {
+            if (achievement.condition is KillAchievementCondition killCondition)
+            {
+                killCondition.AddKill();
+                CheckAndUnlockAchievement(achievement.name);
+            }
+        }
     }
 
     public void CheckAndUnlockAchievement(string achievementName)
@@ -52,17 +62,6 @@ public class AchievementManager : MonoBehaviour
         if (achievement != null && !achievement.isUnlocked)
         {
             achievement.Unlock();
-        }
-    }
-
-    public void DisplayUnlockedAchievements()
-    {
-        foreach (Achievement achievement in achievements)
-        {
-            if (achievement.isUnlocked)
-            {
-                Debug.Log($"Unlocked Achievement: {achievement.name} - {achievement.description}");
-            }
         }
     }
 }

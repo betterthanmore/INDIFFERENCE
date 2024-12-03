@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -9,6 +8,7 @@ public class InventoryManager : MonoBehaviour
     public class Item
     {
         public string itemName;
+        public string itemDescription;
         public int maxStackSize;
         public Sprite itemIcon;
         public int currentStackSize;
@@ -32,17 +32,17 @@ public class InventoryManager : MonoBehaviour
             }
             else if (itemName == "Key")
             {
-                float interactionRadius = 2f; 
+                float interactionRadius = 2f;
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(player.transform.position, interactionRadius);
 
                 foreach (var collider in colliders)
                 {
                     Door door = collider.GetComponent<Door>();
-                    if (door != null) 
+                    if (door != null)
                     {
                         player.StartCoroutine(door.ToggleDoor());
                         currentStackSize--;
-                        break; 
+                        break;
                     }
                 }
             }
@@ -59,7 +59,7 @@ public class InventoryManager : MonoBehaviour
         UpdateShortcutUI();
     }
 
-    public void AddItem(string itemName, Sprite itemIcon, int maxStackSize)
+    public void AddItem(string itemName, string itemDescription, Sprite itemIcon, int maxStackSize)
     {
         foreach (var item in inventory)
         {
@@ -71,7 +71,14 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        Item newItem = new Item { itemName = itemName, itemIcon = itemIcon, maxStackSize = maxStackSize, currentStackSize = 1 };
+        Item newItem = new Item
+        {
+            itemName = itemName,
+            itemDescription = itemDescription,
+            itemIcon = itemIcon,
+            maxStackSize = maxStackSize,
+            currentStackSize = 1
+        };
         inventory.Add(newItem);
 
         for (int i = 0; i < shortcutSlots.Length; i++)

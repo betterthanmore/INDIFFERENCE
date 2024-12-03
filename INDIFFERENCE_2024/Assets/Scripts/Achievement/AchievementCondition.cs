@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementCondition
+public abstract class AchievementCondition
 {
-    // 조건을 체크하는 함수
-    public virtual bool IsConditionMet()
-    {
-        return false;
-    }
+    public abstract bool IsConditionMet();
+    public abstract string GetConditionDescription(); 
 }

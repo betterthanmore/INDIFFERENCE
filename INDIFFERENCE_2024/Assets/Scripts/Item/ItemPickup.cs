@@ -7,6 +7,7 @@ public class ItemPickup : MonoBehaviour
     public string itemName;
     public Sprite itemIcon;
     public int maxStackSize = 10;
+    public string itemDescription;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,7 +16,7 @@ public class ItemPickup : MonoBehaviour
             InventoryManager inventoryManager = FindObjectOfType<InventoryManager>();
             if (inventoryManager != null)
             {
-                inventoryManager.AddItem(itemName, itemIcon, maxStackSize);
+                inventoryManager.AddItem(itemName, itemDescription, itemIcon,  maxStackSize);
                 Destroy(gameObject);
             }
             else
