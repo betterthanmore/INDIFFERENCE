@@ -360,22 +360,16 @@ public class PlayerController : MonoBehaviour
         {
             if (isRunning) // 뛰는 중
             {
-                if (!SoundManager.instance.AudioSfx.isPlaying) // SFX가 재생 중이지 않다면
-                {
-                    SoundManager.instance.PlaySFX(SoundManager.ESfx.SFX_RUN);
-                }
+                SoundManager.instance.PlayWalkRunSFX(SoundManager.ESfx.SFX_RUN);
             }
             else // 걷는 중
             {
-                if (!SoundManager.instance.AudioSfx.isPlaying) // SFX가 재생 중이지 않다면
-                {
-                    SoundManager.instance.PlaySFX(SoundManager.ESfx.SFX_WALK);
-                }
+                SoundManager.instance.PlayWalkRunSFX(SoundManager.ESfx.SFX_WALK);
             }
         }
-        else if (SoundManager.instance.AudioSfx.isPlaying) // 멈췄을 때 소리 끄기
+        else
         {
-            //SoundManager.instance.AudioSfx.Stop();
+            SoundManager.instance.StopWalkRunSFX(); // 움직임 멈출 때 걷기/뛰기 소리 정지
         }
     }
 

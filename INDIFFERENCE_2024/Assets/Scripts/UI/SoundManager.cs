@@ -18,6 +18,7 @@ public class SoundManager : MonoBehaviour
         SFX_JUMP,
         SFX_WALK,
         SFX_RUN,
+        SFX_CLICK,
         SFX_BUTTON
     }
 
@@ -28,6 +29,7 @@ public class SoundManager : MonoBehaviour
     // 재생에 사용할 AudioSource
     [SerializeField] private AudioSource audioBgm;
     [SerializeField] private AudioSource audioSfx;
+    [SerializeField] private AudioSource audioWalkRun;
 
     public AudioClip GetSfx(SoundManager.ESfx sfx)
     {
@@ -90,6 +92,23 @@ public class SoundManager : MonoBehaviour
     {
         audioSfx.volume = volume;
     }
+
+    public void PlayWalkRunSFX(ESfx esfx, float volume = 1.0f)
+    {
+        if (audioWalkRun.clip == sfxs[(int)esfx] && audioWalkRun.isPlaying)
+            return;
+
+        audioWalkRun.clip = sfxs[(int)esfx];
+        audioWalkRun.volume = volume;
+        audioWalkRun.loop = true;
+        audioWalkRun.Play();
+    }
+
+    public void StopWalkRunSFX()
+    {
+        audioWalkRun.Stop();
+    }
+
     void Start()
     {
         // 게임 시작 시 자동으로 타이틀 배경음악 재생

@@ -19,10 +19,12 @@ public class SettingMenu : MonoBehaviour
         if(!isPaused && Input.GetKeyDown(KeyCode.Escape))
         {
             Pause();
+            SoundManager.instance.PlaySFX(SoundManager.ESfx.SFX_CLICK);
         }
         else if(isPaused && Input.GetKeyDown(KeyCode.Escape))
         {
             Resume();
+            SoundManager.instance.PlaySFX(SoundManager.ESfx.SFX_CLICK);
         }
     }
 
