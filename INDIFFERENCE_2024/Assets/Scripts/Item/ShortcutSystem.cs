@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class ShortcutSystem : MonoBehaviour
 {
@@ -9,7 +11,8 @@ public class ShortcutSystem : MonoBehaviour
     private int hoveredSlotIndex = -1;
 
     public GameObject descriptionPanel; // 설명 패널
-    public Text descriptionText;        // 설명 텍스트
+    public TMP_Text nameText;           // 아이템 이름 텍스트
+    public TMP_Text descriptionText;    // 아이템 설명 텍스트
 
     private InventoryManager inventoryManager;
 
@@ -82,12 +85,12 @@ public class ShortcutSystem : MonoBehaviour
         {
             var item = inventoryManager.inventory[slotIndex]; // inventory 리스트에서 아이템 가져오기
             descriptionPanel.SetActive(true);
-            descriptionText.text = $"{item.itemName}\n{item.itemDescription}"; // 아이템 이름과 설명 표시
-            Vector3 mousePosition = Input.mousePosition;
-            descriptionPanel.transform.position = mousePosition + new Vector3(10f, 10f, 0f); // 마우스 옆에 위치
+
+            // 이름과 설명 텍스트 설정
+            nameText.text = item.itemName;
+            descriptionText.text = item.itemDescription; 
         }
     }
-
     private void HideDescription()
     {
         descriptionPanel.SetActive(false);

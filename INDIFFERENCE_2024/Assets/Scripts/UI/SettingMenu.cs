@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SettingMenu : MonoBehaviour
 {
     public GameObject settingMenu;
+    public GameObject descriptionPanel;
 
     public bool isPaused = false;
 
@@ -31,6 +32,7 @@ public class SettingMenu : MonoBehaviour
     public void Resume()
     {
         settingMenu.SetActive(false);
+        descriptionPanel.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
     }
@@ -50,5 +52,9 @@ public class SettingMenu : MonoBehaviour
     public void OnResumeButton()
     {
         Resume();
+    }
+    public void OnChangeButton()
+    {
+        descriptionPanel.SetActive(false);
     }
 }

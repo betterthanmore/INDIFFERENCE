@@ -1,30 +1,31 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using TMPro;
 
 public class Skill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public string skillName;
-    public Sprite skillIcon;
-    public string skillDescription;
+    public string skillName; // 스킬 이름
+    public Sprite skillIcon; // 스킬 아이콘
+    public string skillDescription; // 스킬 설명
 
-    public float cooldown;
-    private float lastUsedTime = -Mathf.Infinity;
+    public float cooldown; // 쿨타임 시간
+    private float lastUsedTime = -Mathf.Infinity; // 마지막 사용 시간
 
-    public GameObject descriptionPanel;
-    public Text descriptionText;
+    public GameObject descriptionPanel; // 설명 패널
+    public TMP_Text nameText; // 이름 텍스트
+    public TMP_Text descriptionText; // 설명 텍스트
 
     private void Start()
     {
         if (descriptionPanel != null)
         {
-            descriptionPanel.SetActive(false);
+            descriptionPanel.SetActive(false); // 설명 패널 비활성화
         }
     }
 
     public bool IsCooldownComplete()
     {
-        return Time.time >= lastUsedTime + cooldown;
+        return Time.time >= lastUsedTime + cooldown; // 쿨타임 확인
     }
 
     public virtual void UseSkill()
@@ -42,10 +43,11 @@ public class Skill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (descriptionPanel != null && descriptionText != null)
+        if (descriptionPanel != null && nameText != null && descriptionText != null)
         {
-            descriptionText.text = $"{skillName}\n{skillDescription}";
-            descriptionPanel.SetActive(true);
+            nameText.text = skillName; // 이름 텍스트 설정
+            descriptionText.text = skillDescription; // 설명 텍스트 설정
+            descriptionPanel.SetActive(true); // 설명 패널 활성화
         }
     }
 
@@ -53,7 +55,7 @@ public class Skill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (descriptionPanel != null)
         {
-            descriptionPanel.SetActive(false);
+            descriptionPanel.SetActive(false); // 설명 패널 비활성화
         }
     }
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Spine.Unity;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,10 +34,7 @@ public class PlayerController : MonoBehaviour
     private float maxFallSpeed = 19.6f;
 
     private BoxCollider2D boxCollider;
-    private Vector2 originalColliderSize;
-    [HideInInspector] public bool isCrouching = false;
     [HideInInspector] public bool isRunning = false;
-    public float crouchSpeedMultiplier = 0.5f;
 
     public GameObject interactionTextPrefab; 
     private GameObject currentInteractionText; 
@@ -55,8 +51,6 @@ public class PlayerController : MonoBehaviour
     public bool isWallJumping;
     public float wallJumpingDuration;
     public Vector2 wallJumpingPower;
-
-    private GameObject textObject;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -64,8 +58,8 @@ public class PlayerController : MonoBehaviour
         ropeJoint = GetComponent<HingeJoint2D>();
         ropeJoint.enabled = false;
         boxCollider = GetComponent<BoxCollider2D>();
-        originalColliderSize = boxCollider.size;
         playerAni = GetComponent<PlayerAnimator>();
+        playerAni.Initialize(animator);
     }
 
     private void Update()
@@ -89,16 +83,6 @@ public class PlayerController : MonoBehaviour
             {
                 isRunning = false;
             }
-            if (isGrounded && Input.GetKeyDown(KeyCode.LeftControl))
-            {
-                isCrouching = true;
-                boxCollider.size = new Vector2(boxCollider.size.x, originalColliderSize.y / 2f);
-            }
-            else if (isGrounded && Input.GetKeyUp(KeyCode.LeftControl))
-            {
-                isCrouching = false;
-                boxCollider.size = originalColliderSize;
-            }
             // มกวม
             if (Input.GetButtonDown("Jump"))
             {
@@ -110,7 +94,7 @@ public class PlayerController : MonoBehaviour
             {
                 interactableObj.Interact();
             }
-            if (isNearObject && Input.GetKey(KeyCode.C)) 
+            else if (Input.GetKeyDown(KeyCode.C) && isNearObject) 
             {
                 PushOrPullObject();
             }
@@ -182,20 +166,10 @@ public class PlayerController : MonoBehaviour
         {
             currentSpeed *= runSpeedMultiplier;
         }
-        else if (isCrouching)
-        {
-            currentSpeed *= crouchSpeedMultiplier;
-        }
-
-        if (isNearObject && Input.GetKey(KeyCode.C))
-        {
-            PushOrPullObject();
-        }
         else
         {
-            rb.velocity = new Vector2(input * currentSpeed, rb.velocity.y);
+            currentSpeed = moveSpeed;
         }
-
         if (isOn_Mp)
         {
             rb.velocity = new Vector2(platformRb.velocity.x + input * currentSpeed, rb.velocity.y);
