@@ -4,7 +4,7 @@ public class DartSkill : Skill
 {
     public GameObject dartPrefab; 
     public Transform firePoint;
-    public float dartSpeed = 100f;
+    private float dartSpeed = 1000f;
 
     public override void UseSkill()
     {

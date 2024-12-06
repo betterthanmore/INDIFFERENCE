@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool isOnJumpPad = false;
     private bool isNearObject = false;
     private bool isInverted = false;
+    private bool isJumping = false;
 
     public bool isOn_Mp = false;
     public Rigidbody2D platformRb;
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerAnimator playerAni;
 
+    public bool isTransparency = false;
     private bool isWallSliding;
     private float wallSlidingSpeed = 2f;
     public LayerMask wallLayer;
@@ -73,13 +75,15 @@ public class PlayerController : MonoBehaviour
             {
                 input *= -1;
             }
-
-
             if (isGrounded && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 isRunning = true;
             }
             else if (isGrounded && Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                isRunning = false;
+            }
+            else if (!isGrounded && Input.GetKeyUp(KeyCode.LeftShift))
             {
                 isRunning = false;
             }
@@ -94,7 +98,7 @@ public class PlayerController : MonoBehaviour
             {
                 interactableObj.Interact();
             }
-            else if (Input.GetKeyDown(KeyCode.C) && isNearObject) 
+            else if (Input.GetKey(KeyCode.F) && isNearObject) 
             {
                 PushOrPullObject();
             }
@@ -102,7 +106,7 @@ public class PlayerController : MonoBehaviour
             {
                 rb.velocity = new Vector2(input * moveSpeed, rb.velocity.y);
             }
-            if (Input.GetKey(KeyCode.Space) && !isClimbing)
+            if (Input.GetKey(KeyCode.F) && !isClimbing)
             {
                 // 로프와 접촉한지 확인
                 Collider2D rope = Physics2D.OverlapCircle(transform.position, 0.5f, ropeLayer);
@@ -114,13 +118,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
             WallSlide();
-
+            Flip();
             // 로프에서 떨어지기
-            if (Input.GetKeyUp(KeyCode.Space) && isClimbing)
+            if (Input.GetKeyUp(KeyCode.F) && isClimbing)
             {
                 DetachFromRope();
             }
-
             HandleMovementSound();
         }
 
@@ -153,6 +156,11 @@ public class PlayerController : MonoBehaviour
         isInverted = invert;
     }
 
+    private void Flip()
+    {
+        if (input > 0.01) this.transform.localScale = new Vector3(1, 1, 1);
+        if (input < -0.01) this.transform.localScale = new Vector3(-1, 1, 1);
+    }
     private void FixedUpdate()
     {
         if (!canMove || isOnJumpPad)
@@ -346,5 +354,4 @@ public class PlayerController : MonoBehaviour
             SoundManager.instance.StopWalkRunSFX(); // 움직임 멈출 때 걷기/뛰기 소리 정지
         }
     }
-
 }

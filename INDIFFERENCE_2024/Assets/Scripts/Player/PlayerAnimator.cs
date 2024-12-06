@@ -24,11 +24,6 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool("IsRunning", isRunning);
     }
 
-    public void SetCrouching(bool isCrouching)
-    {
-        animator.SetBool("IsCrouching", isCrouching);
-    }
-
     public void SetWallSliding(bool isWallSliding)
     {
         animator.SetBool("IsWallSliding", isWallSliding);
