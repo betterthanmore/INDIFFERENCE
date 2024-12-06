@@ -1073,6 +1073,98 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &190790554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 190790556}
+  - component: {fileID: 190790555}
+  - component: {fileID: 190790557}
+  m_Layer: 0
+  m_Name: BossZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &190790555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190790554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebd4837459eecc408d0373bb6e817d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraController: {fileID: 378060850}
+  showBossDuration: 3
+--- !u!4 &190790556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190790554}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -28.7, y: -2.84, z: -18.215843}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &190790557
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190790554}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
 --- !u!1 &195764938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,9 +2014,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTime: 0
-  positionOffest: {x: 0, y: 0, z: -10}
+  positionOffest: {x: 0, y: 0, z: 0}
   xLimit: {x: -15, y: 115}
   yLimit: {x: -4.3, y: 5}
+  bossViewPoint: {fileID: 688380391363328404}
 --- !u!1 &392274072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,6 +3013,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 06c58912aac441a4d83e8afe8be8a7d5, type: 3}
   audioBgm: {fileID: 503954016}
   audioSfx: {fileID: 0}
+  audioWalkRun: {fileID: 0}
 --- !u!4 &503954015
 Transform:
   m_ObjectHideFlags: 0
@@ -4158,6 +4252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingMenu: {fileID: 1822193731}
+  descriptionPanel: {fileID: 0}
   isPaused: 0
 --- !u!1 &652120451
 GameObject:
@@ -9562,9 +9657,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTime: 0
-  positionOffest: {x: 0, y: 0, z: -10}
+  positionOffest: {x: 0, y: 0, z: 0}
   xLimit: {x: -15, y: 115}
   yLimit: {x: -4.3, y: 5}
+  bossViewPoint: {fileID: 0}
 --- !u!81 &1649882132
 AudioListener:
   m_ObjectHideFlags: 0
@@ -10454,12 +10550,11 @@ MonoBehaviour:
   isOn_Mp: 0
   platformRb: {fileID: 0}
   fallMultiplier: 2.5
-  isCrouching: 0
   isRunning: 0
-  crouchSpeedMultiplier: 0.5
   interactionTextPrefab: {fileID: 0}
   floatSpeed: 1
   floatAmount: 0.2
+  isTransparency: 0
   wallLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -11974,6 +12069,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &688380391363328404 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3503310964759219990, guid: b73aa8590743da24eac7b97af2b8958e, type: 3}
+  m_PrefabInstance: {fileID: 688380391363328398}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1362778388841307025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12250,3 +12350,4 @@ SceneRoots:
   - {fileID: 344058894}
   - {fileID: 1117712228}
   - {fileID: 6379245924146816604}
+  - {fileID: 190790556}
