@@ -12,7 +12,7 @@ public class ESC : MonoBehaviour
         {
             panel.SetActive(false);
         }
-        if(panelToActaviate != null)
+        if (panelToActaviate != null)
         {
             panelToActaviate.SetActive(true);
         }

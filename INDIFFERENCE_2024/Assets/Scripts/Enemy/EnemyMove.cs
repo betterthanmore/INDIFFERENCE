@@ -121,7 +121,7 @@ public class EnemyMove : MonoBehaviour
         animator.SetTrigger("isDead");
         isAttacking = false;
         stopMove();
-        achievementManager.OnEnemyKilled();
+        achievementManager.OnEnemyKilled("ΩΩ∂Û¿”");
         Destroy(gameObject,1.0f);
     }
 }

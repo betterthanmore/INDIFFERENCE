@@ -7,7 +7,7 @@ public class SettingMenu : MonoBehaviour
 {
     public GameObject settingMenu;
     public GameObject descriptionPanel;
-
+    public GameObject skillSlots;
     public bool isPaused = false;
 
     void Start()
@@ -33,8 +33,21 @@ public class SettingMenu : MonoBehaviour
     {
         settingMenu.SetActive(false);
         descriptionPanel.SetActive(false);
+        skillSlots.SetActive(true);
         Time.timeScale = 1f;
         isPaused = false;
+    }
+
+    public void changePanel(bool isSkillPanel)
+    {
+        if(isSkillPanel)
+        {
+            skillSlots.SetActive(true);
+        }
+        else
+        {
+            skillSlots.SetActive(false);
+        }
     }
 
     void Pause()

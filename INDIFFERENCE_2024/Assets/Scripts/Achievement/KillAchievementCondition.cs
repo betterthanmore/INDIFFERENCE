@@ -6,16 +6,22 @@ public class KillAchievementCondition : AchievementCondition
 {
     private int requiredKills;
     private int currentKills;
+    private string monsterType;
 
-    public KillAchievementCondition(int requiredKills, AchievementManager manager)
+    public KillAchievementCondition(int requiredKills, string monsterType, AchievementManager manager)
     {
         this.requiredKills = requiredKills;
         this.currentKills = 0;
+        this.monsterType = monsterType; 
     }
 
-    public void AddKill()
+
+    public void AddKill(string killedMonsterType)
     {
-        currentKills++;
+        if (killedMonsterType == monsterType)
+        {
+            currentKills++;
+        }
     }
 
     public override bool IsConditionMet()
@@ -25,6 +31,6 @@ public class KillAchievementCondition : AchievementCondition
 
     public override string GetConditionDescription()
     {
-        return $"적 처치 {currentKills}/{requiredKills}";
+        return $"???의 구슬 {currentKills}/{requiredKills}";
     }
 }

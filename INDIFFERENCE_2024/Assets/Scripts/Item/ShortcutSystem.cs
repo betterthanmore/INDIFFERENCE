@@ -2,24 +2,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class ShortcutSystem : MonoBehaviour
 {
     public GameObject shortcutPanel;
     public Button[] shortcutSlots;
+    public Button[] keyItemSlots;
     private bool isShortcutActive = false;
     private int hoveredSlotIndex = -1;
+    private bool isKeyItemHovered = false;
 
-    public GameObject descriptionPanel; // 설명 패널
-    public TMP_Text nameText;           // 아이템 이름 텍스트
-    public TMP_Text descriptionText;    // 아이템 설명 텍스트
+    public GameObject descriptionPanel;
+    public TMP_Text nameText;
+    public TMP_Text descriptionText;
 
     private InventoryManager inventoryManager;
 
     void Start()
     {
         inventoryManager = FindObjectOfType<InventoryManager>();
-        descriptionPanel.SetActive(false); // 기본적으로 설명 패널 비활성화
+        descriptionPanel.SetActive(false);
     }
 
     void Update()
@@ -35,9 +36,10 @@ public class ShortcutSystem : MonoBehaviour
 
             if (hoveredSlotIndex != -1)
             {
-                inventoryManager.UseItemInSlot(hoveredSlotIndex);
+                inventoryManager.UseItemInSlot(hoveredSlotIndex, isKeyItemHovered);
                 hoveredSlotIndex = -1;
             }
+
             ActivateShortcutPanel(false);
             HideDescription();
         }
@@ -55,6 +57,7 @@ public class ShortcutSystem : MonoBehaviour
         if (!state)
         {
             hoveredSlotIndex = -1;
+            isKeyItemHovered = false;
         }
     }
 
@@ -62,6 +65,7 @@ public class ShortcutSystem : MonoBehaviour
     {
         int currentHoveredSlotIndex = hoveredSlotIndex;
         hoveredSlotIndex = -1;
+        isKeyItemHovered = false;
 
         for (int i = 0; i < shortcutSlots.Length; i++)
         {
@@ -69,28 +73,62 @@ public class ShortcutSystem : MonoBehaviour
             if (RectTransformUtility.RectangleContainsScreenPoint(slotRect, Input.mousePosition))
             {
                 hoveredSlotIndex = i;
-                ShowDescription(i); // 설명 표시
-                break;
+                ShowDescription(i, false);
+                return;
             }
         }
-        if (hoveredSlotIndex != currentHoveredSlotIndex && hoveredSlotIndex == -1)
+
+        for (int i = 0; i < keyItemSlots.Length; i++)
         {
-            HideDescription(); // 슬롯에서 마우스가 벗어났을 때 설명 숨기기
+            RectTransform slotRect = keyItemSlots[i].GetComponent<RectTransform>();
+            if (RectTransformUtility.RectangleContainsScreenPoint(slotRect, Input.mousePosition))
+            {
+                hoveredSlotIndex = i;
+                isKeyItemHovered = true;
+                ShowDescription(i, true);
+                return;
+            }
+        }
+
+        if (hoveredSlotIndex == currentHoveredSlotIndex)
+        {
+            return;
         }
     }
 
-    private void ShowDescription(int slotIndex)
+    private void ShowDescription(int index, bool isKey)
     {
-        if (slotIndex < inventoryManager.inventory.Count) // 해당 슬롯에 아이템이 존재할 때
+        if (isKey)
         {
-            var item = inventoryManager.inventory[slotIndex]; // inventory 리스트에서 아이템 가져오기
-            descriptionPanel.SetActive(true);
+            if (index >= 0 && index < inventoryManager.keyItems.Count)
+            {
+                var item = inventoryManager.keyItems[index];
+                descriptionPanel.SetActive(true);
+                nameText.text = item.itemName;
+                descriptionText.text = item.itemDescription;
+            }
+            else
+            {
+                HideDescription();
+            }
+        }
+        else
+        {
+            if (index >= 0 && index < inventoryManager.inventory.Count)
+            {
+                var item = inventoryManager.inventory[index];
+                descriptionPanel.SetActive(true);
 
-            // 이름과 설명 텍스트 설정
-            nameText.text = item.itemName;
-            descriptionText.text = item.itemDescription; 
+                nameText.text = item.itemName;
+                descriptionText.text = item.itemDescription;
+            }
+            else
+            {
+                HideDescription();
+            }
         }
     }
+
     private void HideDescription()
     {
         descriptionPanel.SetActive(false);

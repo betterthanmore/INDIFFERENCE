@@ -7,20 +7,26 @@ public class CheckPoint : MonoBehaviour, IInteractable
 {
     private CheckPointManager checkPointManager;
     private GameObject player;
+    private PlayerInfo playerInfo;
     public GameObject textPrefab;
 
     private void Start()
     {
         checkPointManager = FindObjectOfType<CheckPointManager>();
         player = GameObject.FindGameObjectWithTag("Player");
+        playerInfo = FindObjectOfType<PlayerInfo>();
     }
 
     public void Interact()
     {
-        if(this.CompareTag("Interactable"))
+        if(playerInfo.currentSoul >= 1)
         {
-            checkPointManager.UpdateCheckPoint(gameObject);
-            DebugSave(player.transform, "체크포인트 세이브!");
+            if (this.CompareTag("Interactable"))
+            {
+                checkPointManager.UpdateCheckPoint(gameObject);
+                DebugSave(player.transform, "체크포인트 세이브!");
+                playerInfo.UseSoul(1);
+            }
         }
     }
 

@@ -9,33 +9,29 @@ public class PlayerAnimator : MonoBehaviour
         this.animator = animator;
     }
 
-    public void SetSpeed(float speed)
+    public void SetIdle()
     {
-        animator.SetFloat("Speed", speed);
-    }
-
-    public void SetGrounded(bool idle)
-    {
-        animator.SetBool("Idle", idle);
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isRunning", false);
     }
 
     public void SetRunning(bool isRunning)
     {
-        animator.SetBool("IsRunning", isRunning);
+        animator.SetBool("isRunning", isRunning);
     }
 
     public void SetWallSliding(bool isWallSliding)
     {
-        animator.SetBool("IsWallSliding", isWallSliding);
+        animator.SetBool("isWallSliding", isWallSliding);
     }
 
     public void SetJumping(bool isJumping)
     {
-        animator.SetBool("IsJumping", isJumping);
+        animator.SetBool("isJumping", isJumping);
     }
 
     public void SetClimbing(bool isClimbing)
     {
-        animator.SetBool("IsClimbing", isClimbing);
+        animator.SetBool("isClimbing", isClimbing);
     }
 }

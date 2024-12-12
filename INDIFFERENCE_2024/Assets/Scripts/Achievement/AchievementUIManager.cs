@@ -20,7 +20,7 @@ public class AchievementUIManager : MonoBehaviour
 
     private RectTransform panelRectTransform;
 
-    void Awake()
+    void Start()
     {
         // 업적 상태 체크 및 UI 초기화
         UpdateAchievementIcons();
@@ -57,8 +57,8 @@ public class AchievementUIManager : MonoBehaviour
         }
         else
         {
-            achievementDetailText.text = $"{achievement.name}\n(잠금 상태)";
-            achievementConditionText.text = achievement.condition?.GetConditionDescription() ?? "조건 없음";
+            achievementDetailText.text = $"{achievement.name}";
+            achievementConditionText.text = $"{achievement.description}\n{achievement.condition?.GetConditionDescription()}";
         }
     }
     private IEnumerator PopUpAndFadeDown(string achievementName, Sprite achievementIcon)

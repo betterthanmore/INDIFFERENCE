@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
+    public float rollSpeed = 20f;
     public LayerMask groundLayer;
     public LayerMask ropeLayer;
     public float climbSpeed = 3f;
@@ -26,7 +27,6 @@ public class PlayerController : MonoBehaviour
     private bool isOnJumpPad = false;
     private bool isNearObject = false;
     private bool isInverted = false;
-    private bool isJumping = false;
 
     public bool isOn_Mp = false;
     public Rigidbody2D platformRb;
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     public float floatSpeed = 1f; 
     public float floatAmount = 0.2f;
 
-    private PlayerAnimator playerAni;
+    private Animator playerAni;
 
     public bool isTransparency = false;
     private bool isWallSliding;
@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
     public bool isWallJumping;
     public float wallJumpingDuration;
     public Vector2 wallJumpingPower;
+    private bool isRolling = false;
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -60,17 +62,25 @@ public class PlayerController : MonoBehaviour
         ropeJoint = GetComponent<HingeJoint2D>();
         ropeJoint.enabled = false;
         boxCollider = GetComponent<BoxCollider2D>();
-        playerAni = GetComponent<PlayerAnimator>();
-        playerAni.Initialize(animator);
+        playerAni = GetComponent<Animator>();
     }
 
     private void Update()
     {
+        if (isRolling)
+            return;
         if (canMove)
         {
             // 플레이어 이동 입력 처리
             input = Input.GetAxisRaw("Horizontal");
-
+            if(input != 0)
+            {
+                animator.SetBool("isWalking", true);
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+            }
             if (isInverted)
             {
                 input *= -1;
@@ -78,18 +88,22 @@ public class PlayerController : MonoBehaviour
             if (isGrounded && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 isRunning = true;
+                animator.SetBool("isRunning", isRunning);
             }
             else if (isGrounded && Input.GetKeyUp(KeyCode.LeftShift))
             {
                 isRunning = false;
+                animator.SetBool("isRunning", isRunning);
             }
             else if (!isGrounded && Input.GetKeyUp(KeyCode.LeftShift))
             {
                 isRunning = false;
+                animator.SetBool("isRunning", isRunning);
             }
             // 점프
             if (Input.GetButtonDown("Jump"))
             {
+                animator.SetTrigger("Jump");
                 Jump();
             }
 
@@ -129,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
         // 플레이어가 땅에 있는지 체크
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
+        
         if (!isGrounded && rb.velocity.y < 0)
         {
             float adjustedFallMultiplier = Mathf.SmoothStep(1f, fallMultiplier, -rb.velocity.y / 5f);
@@ -142,6 +156,10 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
             }
         }
+        else if(isGrounded && rb.velocity.y <0)
+        {
+            animator.SetTrigger("Fall");
+        }
 
         if (currentInteractionText != null)
         {
@@ -150,12 +168,27 @@ public class PlayerController : MonoBehaviour
             currentInteractionText.transform.position = originalPosition + new Vector3(0, 1 + Mathf.Sin(Time.time * floatSpeed) * floatAmount, 0);
         }
     }
-
     public void InvertControls(bool invert)
     {
         isInverted = invert;
     }
-
+    public void StartRoll()
+    {
+        if(!isRolling)
+        {
+            animator.SetTrigger("Roll");
+            isRolling = true;
+            float direction = input != 0 ? input : Mathf.Sign(transform.localScale.x); rb.velocity = Vector2.zero;
+            Vector2 rollDirection = new Vector2(direction, 0).normalized;
+            rb.AddForce(rollDirection * rollSpeed, ForceMode2D.Impulse); 
+            Invoke("EndRoll", 0.5f);
+        }
+    }
+    public void EndRoll()
+    {
+        isRolling = false;
+        rb.velocity = Vector2.zero;
+    }
     private void Flip()
     {
         if (input > 0.01) this.transform.localScale = new Vector3(1, 1, 1);
@@ -167,9 +200,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
         float currentSpeed = moveSpeed;
-
         if (isRunning)
         {
             currentSpeed *= runSpeedMultiplier;

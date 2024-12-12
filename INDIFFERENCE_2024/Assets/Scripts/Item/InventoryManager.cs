@@ -12,25 +12,11 @@ public class InventoryManager : MonoBehaviour
         public int maxStackSize;
         public Sprite itemIcon;
         public int currentStackSize;
+        public bool isKey; 
 
         public void Use(PlayerInfo player)
         {
-            if (itemName == "Potion")
-            {
-                player.Heal(50);
-                currentStackSize--;
-            }
-            else if (itemName == "Mana Potion")
-            {
-                Debug.Log("플레이어의 마나가 회복되었습니다.");
-                currentStackSize--;
-            }
-            else if (itemName == "Big Health Potion")
-            {
-                player.Heal(100);
-                currentStackSize--;
-            }
-            else if (itemName == "Key")
+            if (isKey)
             {
                 float interactionRadius = 2f;
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(player.transform.position, interactionRadius);
@@ -46,27 +32,49 @@ public class InventoryManager : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                if (itemName == "영혼조각")
+                {
+                    player.Heal(1);
+                    currentStackSize--;
+                }
+                else if (itemName == "생기조각")
+                {
+                    if(player.currentSoul<3)
+                    {
+                        player.FillSoul(1);
+                        currentStackSize--;
+                    }
+                }
+            }
         }
     }
 
     public List<Item> inventory = new List<Item>();
+    public List<Item> keyItems = new List<Item>();  
+
     public Image[] shortcutSlots;
+    public Image[] keyItemSlots;
+
     private PlayerInfo playerInfo;
 
     void Start()
     {
         playerInfo = FindObjectOfType<PlayerInfo>();
         UpdateShortcutUI();
+        UpdateKeyItemUI();
     }
-
-    public void AddItem(string itemName, string itemDescription, Sprite itemIcon, int maxStackSize)
+    public void AddItem(string itemName, string itemDescription, Sprite itemIcon, int maxStackSize, bool isKey)
     {
-        foreach (var item in inventory)
+        List<Item> targetList = isKey ? keyItems : inventory;
+
+        foreach (var item in targetList)
         {
             if (item.itemName == itemName && item.currentStackSize < item.maxStackSize)
             {
                 item.currentStackSize++;
-                UpdateShortcutUI();
+                UpdateUI(isKey);
                 return;
             }
         }
@@ -77,22 +85,24 @@ public class InventoryManager : MonoBehaviour
             itemDescription = itemDescription,
             itemIcon = itemIcon,
             maxStackSize = maxStackSize,
-            currentStackSize = 1
+            currentStackSize = 1,
+            isKey = isKey
         };
-        inventory.Add(newItem);
+        targetList.Add(newItem);
 
-        for (int i = 0; i < shortcutSlots.Length; i++)
-        {
-            if (shortcutSlots[i].GetComponentInChildren<Text>().text == "")
-            {
-                AssignToShortcutSlot(newItem, i);
-                break;
-            }
-        }
-
-        UpdateShortcutUI();
+        UpdateUI(isKey);
     }
-
+    private void UpdateUI(bool isKey)
+    {
+        if (isKey)
+        {
+            UpdateKeyItemUI();
+        }
+        else
+        {
+            UpdateShortcutUI();
+        }
+    }
     private void UpdateShortcutUI()
     {
         for (int i = 0; i < shortcutSlots.Length; i++)
@@ -108,29 +118,40 @@ public class InventoryManager : MonoBehaviour
             {
                 shortcutSlots[i].GetComponentInChildren<Text>().text = "";
                 shortcutSlots[i].GetComponent<Image>().sprite = null;
+                shortcutSlots[i].GetComponent<Image>().enabled = false;
             }
         }
     }
-
-    private void AssignToShortcutSlot(Item item, int slotIndex)
+    private void UpdateKeyItemUI()
     {
-        shortcutSlots[slotIndex].GetComponentInChildren<Text>().text = $"{item.currentStackSize}";
-        shortcutSlots[slotIndex].GetComponent<Image>().sprite = item.itemIcon;
-        shortcutSlots[slotIndex].GetComponent<Image>().enabled = true;
-    }
-
-    public void UseItemInSlot(int slotIndex)
-    {
-        if (slotIndex < inventory.Count)
+        for (int i = 0; i < keyItemSlots.Length; i++)
         {
-            inventory[slotIndex].Use(playerInfo);
-
-            if (inventory[slotIndex].currentStackSize <= 0)
+            if (i < keyItems.Count)
             {
-                inventory.RemoveAt(slotIndex);
+                var item = keyItems[i];
+                keyItemSlots[i].GetComponent<Image>().sprite = item.itemIcon;
+                keyItemSlots[i].GetComponent<Image>().enabled = true;
             }
+            else
+            {
+                keyItemSlots[i].GetComponent<Image>().sprite = null;
+                keyItemSlots[i].GetComponent<Image>().enabled = false;
+            }
+        }
+    }
+    public void UseItemInSlot(int slotIndex, bool isKeyItem = false)
+    {
+        var targetList = isKeyItem ? keyItems : inventory;
 
-            UpdateShortcutUI();
+        if (slotIndex < targetList.Count)
+        {
+            targetList[slotIndex].Use(playerInfo);
+
+            if (targetList[slotIndex].currentStackSize <= 0)
+            {
+                targetList.RemoveAt(slotIndex);
+            }
+            UpdateUI(isKeyItem);
         }
     }
 }

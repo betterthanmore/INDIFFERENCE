@@ -21,14 +21,6 @@ public class CheckPointManager : MonoBehaviour
         restartPosition = startCheckPoint;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Respawn();
-        }
-    }
-
     public void Respawn()
     {
         if (currentCheckPoint != null)
@@ -41,9 +33,8 @@ public class CheckPointManager : MonoBehaviour
     {
         if (currentCheckPoint != null && currentCheckPoint == newCheckPoint)
         {
-            return; 
+            return;
         }
-
         currentCheckPoint = newCheckPoint; 
         if (!checkPoints.Contains(newCheckPoint))
         {
