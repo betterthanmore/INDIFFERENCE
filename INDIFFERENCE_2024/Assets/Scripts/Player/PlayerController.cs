@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float pushPullSpeed = 3f;
     public float jumpForce = 10f;
     public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
+    public float groundCheckRadius = 0.1f;
     public float rollSpeed = 20f;
     public LayerMask groundLayer;
     public LayerMask ropeLayer;
@@ -27,14 +27,13 @@ public class PlayerController : MonoBehaviour
     private bool isOnJumpPad = false;
     private bool isNearObject = false;
     private bool isInverted = false;
-
+    private bool isPushorPulling = false;
     public bool isOn_Mp = false;
     public Rigidbody2D platformRb;
 
     public float fallMultiplier = 1.5f;
     private float maxFallSpeed = 19.6f;
 
-    private BoxCollider2D boxCollider;
     [HideInInspector] public bool isRunning = false;
 
     public GameObject interactionTextPrefab; 
@@ -48,20 +47,22 @@ public class PlayerController : MonoBehaviour
     private bool isWallSliding;
     private float wallSlidingSpeed = 2f;
     public LayerMask wallLayer;
-    public Transform wallRightCheck;
-    public Transform wallLeftCheck;
+    public Transform wallCheck;
     public bool isWallJumping;
     public float wallJumpingDuration;
     public Vector2 wallJumpingPower;
     private bool isRolling = false;
-    
+
+    public int extraJumpCount = 1;
+    private int currentJumpCount = 0;
+    public bool activatedDJ = false; 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         ropeJoint = GetComponent<HingeJoint2D>();
         ropeJoint.enabled = false;
-        boxCollider = GetComponent<BoxCollider2D>();
         playerAni = GetComponent<Animator>();
     }
 
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
         {
             // 플레이어 이동 입력 처리
             input = Input.GetAxisRaw("Horizontal");
-            if(input != 0)
+            if(input != 0 && isGrounded)
             {
                 animator.SetBool("isWalking", true);
             }
@@ -103,18 +104,24 @@ public class PlayerController : MonoBehaviour
             // 점프
             if (Input.GetButtonDown("Jump"))
             {
-                animator.SetTrigger("Jump");
                 Jump();
             }
 
             // 상호작용
-            if (Input.GetKeyDown(KeyCode.F ) && interactableObj != null)
+            if (Input.GetKeyDown(KeyCode.F ) && interactableObj != null && !isNearObject)
             {
                 interactableObj.Interact();
+                animator.SetTrigger("Interaction");
             }
-            else if (Input.GetKey(KeyCode.F) && isNearObject) 
+            if (Input.GetKey(KeyCode.F) && isNearObject)
             {
-                PushOrPullObject();
+                 PushOrPullObject();
+            }
+            else if(Input.GetKeyUp(KeyCode.F))
+            {
+                isPushorPulling = false;
+                animator.SetBool("isPulling", false);
+                animator.SetBool("isPushing", false);
             }
             else
             {
@@ -123,11 +130,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.F) && !isClimbing)
             {
                 // 로프와 접촉한지 확인
-                Collider2D rope = Physics2D.OverlapCircle(transform.position, 0.5f, ropeLayer);
+                Collider2D rope = Physics2D.OverlapCircle(transform.position, 0.2f, ropeLayer);
                 if (rope != null)
                 {
-                    float verticalInput = Input.GetAxisRaw("Vertical");
-                    rb.velocity = new Vector2(rb.velocity.x, verticalInput * climbSpeed);
                     AttachToRope(rope.attachedRigidbody);
                 }
             }
@@ -160,6 +165,14 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger("Fall");
         }
+        if (rb.velocity.y != 0 || !isGrounded)
+        {
+            animator.SetBool("Jumping", true);
+        }
+        else
+        {
+            animator.SetBool("Jumping", false);
+        }
 
         if (currentInteractionText != null)
         {
@@ -167,6 +180,10 @@ public class PlayerController : MonoBehaviour
                 ? (interactableObj as MonoBehaviour).transform.position : transform.position;
             currentInteractionText.transform.position = originalPosition + new Vector3(0, 1 + Mathf.Sin(Time.time * floatSpeed) * floatAmount, 0);
         }
+    }
+    public void Attack()
+    {
+        animator.SetTrigger("Attack");
     }
     public void InvertControls(bool invert)
     {
@@ -191,8 +208,11 @@ public class PlayerController : MonoBehaviour
     }
     private void Flip()
     {
-        if (input > 0.01) this.transform.localScale = new Vector3(1, 1, 1);
-        if (input < -0.01) this.transform.localScale = new Vector3(-1, 1, 1);
+        if(!isPushorPulling)
+        {
+            if (input > 0.01) this.transform.localScale = new Vector3(1, 1, 1);
+            if (input < -0.01) this.transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
     private void FixedUpdate()
     {
@@ -220,12 +240,21 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
-        if(isGrounded)
+        animator.SetTrigger("Jump");
+        if (isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             SoundManager.instance.PlaySFX(SoundManager.ESfx.SFX_JUMP);
+            currentJumpCount = 0; 
         }
-        if(isWallSliding)
+        else if (currentJumpCount < extraJumpCount && activatedDJ)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            SoundManager.instance.PlaySFX(SoundManager.ESfx.SFX_JUMP);
+            currentJumpCount++;
+        }
+
+        if (isWallSliding)
         {
             isWallJumping = true;
             Invoke("StopWallJump", wallJumpingDuration);
@@ -235,33 +264,34 @@ public class PlayerController : MonoBehaviour
     {
         isWallJumping = false;
     }
-    private bool IsRightWalled()
+    private bool IsWalled()
     {
-        return Physics2D.OverlapCircle(wallLeftCheck.position, 0.1f, wallLayer);
-    }
-    private bool IsLeftWalled()
-    {
-        return Physics2D.OverlapCircle(wallRightCheck.position, 0.1f, wallLayer);
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
     }
     private void WallSlide()
     {
-        if(IsRightWalled() && !isGrounded && input != 0f || IsLeftWalled() && !isGrounded && input != 0f)
+        if(IsWalled() && !isGrounded && input != 0f)
         {
             isWallSliding = true;
+            animator.SetBool("isWallSliding", true);
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
         else
         {
             isWallSliding = false;
+            animator.SetBool("isWallSliding", false);
         }
     }
-    
     void PushOrPullObject()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.5f);
+        if (!isNearObject) return;
+        isPushorPulling = true;
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(wallCheck.position, 0.2f);
+
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.CompareTag("Object"))
+            if (hitCollider.CompareTag("Object") && isPushorPulling)
             {
                 Vector2 direction = new Vector2(input, 0).normalized;
                 Rigidbody2D objectRb = hitCollider.GetComponent<Rigidbody2D>();
@@ -269,6 +299,35 @@ public class PlayerController : MonoBehaviour
                 if (objectRb != null && objectRb.bodyType == RigidbodyType2D.Dynamic)
                 {
                     objectRb.velocity = direction * pushPullSpeed;
+
+                    if (transform.localScale.x < 0 && input > 0)
+                    {
+                        animator.SetBool("isPushing", false);
+                        animator.SetBool("isPulling", true);
+                        animator.speed = Mathf.Abs(input);
+                    }
+                    else if (transform.localScale.x > 0 && input < 0)
+                    {
+                        animator.SetBool("isPushing", false);
+                        animator.SetBool("isPulling", true);
+                        animator.speed = Mathf.Abs(input);
+                    }
+                    else if (transform.localScale.x < 0 && input < 0)
+                    {
+                        animator.SetBool("isPushing", true);
+                        animator.SetBool("isPulling", false);
+                        animator.speed = Mathf.Abs(input);
+                    }
+                    else if (transform.localScale.x > 0 && input > 0)
+                    {
+                        animator.SetBool("isPushing", true);
+                        animator.SetBool("isPulling", false);
+                        animator.speed = Mathf.Abs(input);
+                    }
+                    else
+                    {
+                        animator.speed = 1f;
+                    }
                 }
             }
         }
@@ -299,13 +358,12 @@ public class PlayerController : MonoBehaviour
             interactableObj = newInteractableObj;
             if (other.CompareTag("Interactable"))
             {
-                ShowInteractionText(other.transform, "[F] 상호작용");
+                ShowInteractionText(other.transform, "[F]");
             }
         }
-        else if (other.CompareTag("Object")) 
+        if (other.CompareTag("Object"))
         {
             isNearObject = true;
-            //ShowInteractionText(other.transform, "C 밀고/당기기");
         }
     }
 
@@ -326,6 +384,9 @@ public class PlayerController : MonoBehaviour
     //로프 매달리기
     private void AttachToRope(Rigidbody2D ropeSegment)
     {
+        animator.SetBool("Hang", true);
+        animator.SetBool("Jumping", false);
+        rb.constraints = RigidbodyConstraints2D.None;
         ropeJoint.enabled = true;
         ropeJoint.connectedBody = ropeSegment;
         isClimbing = true;
@@ -333,6 +394,9 @@ public class PlayerController : MonoBehaviour
     //로프에서 떨어지기
     private void DetachFromRope()
     {
+        animator.SetBool("Hang", false);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         ropeJoint.enabled = false;
         ropeJoint.connectedBody = null;
         isClimbing = false;

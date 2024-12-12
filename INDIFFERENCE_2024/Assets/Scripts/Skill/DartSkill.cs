@@ -4,7 +4,8 @@ public class DartSkill : Skill
 {
     public GameObject dartPrefab; 
     public Transform firePoint;
-    private float dartSpeed = 1000f;
+    private float dartSpeed = 50f;
+    public PlayerController player;
 
     public override void UseSkill()
     {
@@ -12,6 +13,7 @@ public class DartSkill : Skill
         {
             base.UseSkill();
             ThrowDart();
+            player.Attack();
         }
     }
 
@@ -22,7 +24,9 @@ public class DartSkill : Skill
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0; 
         Vector2 fireDirection = (mousePosition - firePoint.position).normalized;
+        float angle = Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg;
 
+        dart.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         Rigidbody2D rb = dart.GetComponent<Rigidbody2D>();
         if (rb != null)
         {

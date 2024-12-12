@@ -23,6 +23,6 @@ public class TriggerAchievementCondition : AchievementCondition
 
     public override string GetConditionDescription()
     {
-        return "튜토리얼 완료!";
+        return "";
     }
 }

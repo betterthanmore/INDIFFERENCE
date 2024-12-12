@@ -53,6 +53,10 @@ public class BreakableObject : MonoBehaviour
                 if (enemy != null)
                 {
                     enemy.TakeDamage((int)damage);
+                    if(this.CompareTag("Dart"))
+                    {
+                        Destroy(this.gameObject);
+                    }
                 }
             }
 

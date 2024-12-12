@@ -28,8 +28,6 @@ public class PlayerInfo : MonoBehaviour
     public GameObject[] maxHpBeeds;
     public GameObject[] maxSoulBeeds;
 
-    public GameObject gameOverPanel;
-
     void Start()
     {
         currentHealth = maxHealth;
@@ -54,7 +52,6 @@ public class PlayerInfo : MonoBehaviour
             else
             {
                 Die();
-                gameOverPanel.SetActive(true);
                 playerController.canMove = false;
             }
         }
