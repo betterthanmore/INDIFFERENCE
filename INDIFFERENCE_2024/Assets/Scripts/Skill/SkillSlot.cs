@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 using UnityEngine.UI;
 
 public class SkillSlot : MonoBehaviour, IDropHandler
 {
     [SerializeField] private Image slotImage;
+    [SerializeField] private Image cooldownImage;
     public Skill AssignedSkill { get; private set; }
 
     private Sprite defaultSprite;
@@ -13,6 +15,7 @@ public class SkillSlot : MonoBehaviour, IDropHandler
     private void Awake()
     {
         defaultSprite = slotImage.sprite;
+        cooldownImage.fillAmount = 0f;
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -68,5 +71,20 @@ public class SkillSlot : MonoBehaviour, IDropHandler
     public void UseSkill()
     {
         AssignedSkill?.UseSkill();
+        StartCoroutine(HandleCooldown());
+    }
+    private IEnumerator HandleCooldown()
+    {
+        float cooldownTime = AssignedSkill.cooldown; 
+        cooldownImage.fillAmount = 1f; 
+
+        while (cooldownTime > 0)
+        {
+            cooldownTime -= Time.deltaTime;
+            cooldownImage.fillAmount = cooldownTime / AssignedSkill.cooldown;
+            yield return null;
+        }
+
+        cooldownImage.fillAmount = 0f;
     }
 }

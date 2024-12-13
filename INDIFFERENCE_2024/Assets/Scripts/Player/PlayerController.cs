@@ -55,8 +55,8 @@ public class PlayerController : MonoBehaviour
 
     public int extraJumpCount = 1;
     private int currentJumpCount = 0;
-    public bool activatedDJ = false; 
-
+    public bool activatedDJ = false;
+    public GameObject[] beeds;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -68,6 +68,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Backspace))
+        {
+            foreach(GameObject beed in beeds)
+            {
+                beed.SetActive(true);
+            }
+        }
         if (isRolling)
             return;
         if (canMove)
@@ -165,7 +172,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger("Fall");
         }
-        if (rb.velocity.y != 0 || !isGrounded)
+        if (rb.velocity.y != 0 && !isGrounded && !isWallSliding)
         {
             animator.SetBool("Jumping", true);
         }

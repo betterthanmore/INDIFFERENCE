@@ -12,7 +12,7 @@ public class EnemyMove : MonoBehaviour
     public bool isAttacking = false;
     public float moveSpeed = 1.0f;
 
-    public int maxHealth = 50;
+    public int maxHealth = 10;
     private int currentHealth;
     public bool isDead = false;
 

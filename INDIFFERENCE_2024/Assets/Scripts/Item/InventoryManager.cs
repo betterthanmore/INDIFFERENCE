@@ -18,6 +18,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (isKey)
             {
+                // Interaction 범위 설정
                 float interactionRadius = 2f;
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(player.transform.position, interactionRadius);
 
@@ -26,9 +27,24 @@ public class InventoryManager : MonoBehaviour
                     Door door = collider.GetComponent<Door>();
                     if (door != null)
                     {
-                        player.StartCoroutine(door.ToggleDoor());
-                        currentStackSize--;
-                        break;
+                        if (itemName == "PatienceBead")
+                        {
+                            door.ToggleDoor(1);
+                            currentStackSize--;
+                            break;
+                        }
+                        else if (itemName == "ConfidenceBead")
+                        {
+                            door.ToggleDoor(2);
+                            currentStackSize--;
+                            break;
+                        }
+                        else if (itemName == "BraveBead")
+                        {
+                            door.ToggleDoor(0);
+                            currentStackSize--;
+                            break;
+                        }
                     }
                 }
             }

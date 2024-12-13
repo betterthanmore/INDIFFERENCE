@@ -5,7 +5,7 @@ using UnityEngine;
 public class ButtonChecker : MonoBehaviour
 {
     public List<PressingButton> buttons;
-    public ButtonDoor connectedDoor;
+    public AchievementManager clear;
 
     private int currentStep = 0;
     private HashSet<int> pressedButtons = new HashSet<int>(); // 비순서적 체크용
@@ -17,6 +17,7 @@ public class ButtonChecker : MonoBehaviour
     {
         currentStep = 0;
         backGroundText = FindObjectOfType<BackGroundText>();
+        clear = FindObjectOfType<AchievementManager>();
     }
 
     public void ButtonPressed(int buttonIndex)
@@ -82,13 +83,11 @@ public class ButtonChecker : MonoBehaviour
     {
         Debug.Log("퍼즐 풀림");
 
-        if (connectedDoor != null)
+        if (clear != null)
         {
-            connectedDoor.OpenDoor();
-        }
-        else
-        {
-            Debug.LogWarning("Door가 연결되어 있지 않습니다.");
+            TriggerAchievementCondition achievementCondition = clear.achievements[0].condition as TriggerAchievementCondition;
+            achievementCondition.ActivateTrigger();
+            clear.CheckAndUnlockAchievement("시작의 발걸음");
         }
 
         if (backGroundText != null && backGroundText.textTriggers.Count > 0)
