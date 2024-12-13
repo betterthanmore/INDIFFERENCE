@@ -50,6 +50,26 @@ public class AchievementManager : MonoBehaviour
         achievements.Add(new Achievement("이제서야 이곳이 무엇인지 알 것 같아.", "모든 지역을 해금", new TriggerAchievementCondition(this)));
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            UnlockAllAchievements();
+        }
+    }
+
+    public void UnlockAllAchievements()
+    {
+        foreach (Achievement achievement in achievements)
+        {
+            if (!achievement.isUnlocked)
+            {
+                achievement.Unlock();
+            }
+        }
+        Debug.Log("모든 업적이 해금되었습니다!");
+    }
+
     public void OnEnemyKilled(string monsterType) 
     {
         foreach (Achievement achievement in achievements)

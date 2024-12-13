@@ -52,7 +52,7 @@ public class BreakableObject : MonoBehaviour
                 EnemyMove enemy = collision.collider.GetComponent<EnemyMove>();
                 if (enemy != null)
                 {
-                    enemy.TakeDamage((int)damage);
+                    enemy.TakeDamage(50);
                     if(this.CompareTag("Dart"))
                     {
                         Destroy(this.gameObject);

@@ -41,7 +41,7 @@ public class EnemyAttack : MonoBehaviour
         if (playerInfo != null)
         {
             Vector2 enemyPosition = transform.position;
-            playerInfo.TakeDamage(10, enemyPosition); // 예시로 데미지를 10으로 설정
+            playerInfo.TakeDamage(1, enemyPosition); 
         }
 
         yield return new WaitForSeconds(1f);

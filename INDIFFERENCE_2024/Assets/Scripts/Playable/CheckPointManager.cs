@@ -9,7 +9,7 @@ public class CheckPointManager : MonoBehaviour
     private GameObject player;
     private GameObject currentCheckPoint;
     private GameObject restartPosition;
-    public float fadeDuration = 1f;
+    public float fadeDuration = 2f;
     public Image fadeImage;
     public Image gameOver;
 
@@ -64,6 +64,8 @@ public class CheckPointManager : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
+        yield return new WaitForSeconds(fadeDuration);
+
         if (currentCheckPoint != null)
         {
             player.transform.position = currentCheckPoint.transform.position;
@@ -86,6 +88,7 @@ public class CheckPointManager : MonoBehaviour
     private IEnumerator GameOverFadeOut()
     {
         float timeElapsed = 0f;
+        gameOver.enabled = true;
         Color startColor = gameOver.color;
         while (timeElapsed < fadeDuration)
         {
@@ -95,11 +98,6 @@ public class CheckPointManager : MonoBehaviour
             yield return null;
         }
         gameOver.color = new Color(startColor.r, startColor.g, startColor.b, 1f);
-        StartCoroutine(GameOverFadeIn());
-    }
-
-    private IEnumerator GameOverFadeIn()
-    {
         if (currentCheckPoint != null)
         {
             player.transform.position = currentCheckPoint.transform.position;
@@ -108,16 +106,5 @@ public class CheckPointManager : MonoBehaviour
         {
             player.transform.position = restartPosition.transform.position;
         }
-
-        float timeElapsed = 0f;
-        Color startColor = gameOver.color;
-        while (timeElapsed < fadeDuration)
-        {
-            float alpha = Mathf.Lerp(startColor.a, 0f, timeElapsed / fadeDuration);
-            gameOver.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-        gameOver.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
     }
 }

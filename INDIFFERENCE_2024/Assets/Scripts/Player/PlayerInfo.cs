@@ -49,6 +49,10 @@ public class PlayerInfo : MonoBehaviour
                 StartCoroutine(Knockback(enemyPosition));
                 StartCoroutine(BlinkAndInvincibility());
             }
+            else if(currentHealth > 0 && damage >= 1)
+            {
+                respawnPosition.Respawn();
+            }
             else
             {
                 Die();
