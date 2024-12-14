@@ -1008,7 +1008,7 @@ GameObject:
   - component: {fileID: 260063223}
   m_Layer: 3
   m_Name: Rock_10
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1752,7 +1752,7 @@ GameObject:
   - component: {fileID: 350909369}
   m_Layer: 3
   m_Name: Rock_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1882,7 +1882,7 @@ GameObject:
   - component: {fileID: 354547721}
   m_Layer: 3
   m_Name: Rock_7
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4807,7 +4807,7 @@ GameObject:
   - component: {fileID: 812155059}
   m_Layer: 3
   m_Name: Rock_1 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7440,7 +7440,7 @@ GameObject:
   - component: {fileID: 1149765738}
   m_Layer: 3
   m_Name: Rock_1 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7996,7 +7996,7 @@ GameObject:
   - component: {fileID: 1338828714}
   m_Layer: 3
   m_Name: Rock_1 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8300,7 +8300,7 @@ GameObject:
   - component: {fileID: 1349314463}
   m_Layer: 3
   m_Name: Rock_4
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8715,7 +8715,7 @@ GameObject:
   - component: {fileID: 1426093293}
   m_Layer: 3
   m_Name: Rock_7 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10882,7 +10882,7 @@ GameObject:
   - component: {fileID: 1825647500}
   m_Layer: 3
   m_Name: Rock_1 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11088,7 +11088,7 @@ GameObject:
   - component: {fileID: 1921846692}
   m_Layer: 3
   m_Name: Ruins_2 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
