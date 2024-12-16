@@ -14,6 +14,7 @@ public class ItemPickup : MonoBehaviour
 
     void Start()
     {
+        itemDescription = itemDescription.Replace("\\n", "\n");
         achievementManager = FindObjectOfType<AchievementManager>();
     }
 

@@ -28,6 +28,6 @@ public class CollectItemAchievement : AchievementCondition
 
     public override string GetConditionDescription()
     {
-        return isCollected ? $"{targetItemName} 획득 완료!" : $"{targetItemName}를 수집하세요.";
+        return isCollected ? $"{targetItemName} 획득 완료!" :  $"{targetItemName}를 수집하세요.";
     }
 }

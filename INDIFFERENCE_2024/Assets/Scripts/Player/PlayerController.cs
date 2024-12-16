@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -68,6 +69,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SceneManager.LoadScene(1);
+        }
         if(Input.GetKeyDown(KeyCode.Backspace))
         {
             foreach(GameObject beed in beeds)
@@ -393,7 +398,7 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("Hang", true);
         animator.SetBool("Jumping", false);
-        rb.constraints = RigidbodyConstraints2D.None;
+        //rb.constraints = RigidbodyConstraints2D.None;
         ropeJoint.enabled = true;
         ropeJoint.connectedBody = ropeSegment;
         isClimbing = true;

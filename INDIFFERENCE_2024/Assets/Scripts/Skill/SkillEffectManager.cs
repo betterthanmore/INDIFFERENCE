@@ -6,7 +6,7 @@ public class SkillEffectManager : MonoBehaviour
     public GameObject player;
     public GameObject wings;
     private PlayerController playerScript;
-    private SpriteRenderer[] spriteRenderers;
+    public SpriteRenderer[] spriteRenderers;
     private Rigidbody2D playerRig;
     private float transparencyDuration = 5f;
     public float glideDuration = 5f;
@@ -23,7 +23,6 @@ public class SkillEffectManager : MonoBehaviour
 
     void Start()
     {
-        spriteRenderers = player.GetComponentsInChildren<SpriteRenderer>();
         playerRig = player.GetComponent<Rigidbody2D>();
         groundLayer = LayerMask.NameToLayer("Ground");
         playerScript = player.GetComponent<PlayerController>();
